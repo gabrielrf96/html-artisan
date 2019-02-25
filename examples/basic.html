@@ -50,9 +50,10 @@
                             for (var i = 0; i < iterItems.length; i++) {
                                 var elem = iterItems[i];
                                 elems.push(
-                                    h('span', null, iterItems[i])
+                                    h('li', null, iterItems[i])
                                 );
                             }
+                            return elems;
                         }]
                     ]
                 );
