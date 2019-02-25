@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>HtmlArtisan - Fix conflicts (custom) test</title>
+
+        <script>
+            // Another library sets h
+            window.h = function() {
+                console.log('Original h');
+            }
+        </script>
+
+        <script src="../src/htmlartisan.js" type="text/javascript"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // Restore original namespace using default HtmlArtisan namespace
+                window.customNamespace = h.fixConflict();
+
+                // h() is now the one set by the other library!
+                h();
+
+                document.body.appendChild(
+                    customNamespace('p', null, 'Original "h" namespace restored. HtmlArtisan set to custom namespace "customNamespace"')
+                );
+            });
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>
