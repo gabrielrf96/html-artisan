@@ -92,7 +92,7 @@
             }
         }
 
-        callback = (typeof callback !== 'undefined' && callback !== null) ? callback:(attributes.callback || null);
+        callback = (typeof callback !== 'undefined' && callback !== null) ? callback:((attributes && attributes.callback) || null);
         if (callback !== null) {
             callback.apply(element);
         }
