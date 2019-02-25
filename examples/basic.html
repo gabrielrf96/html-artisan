@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>HtmlArtisan - Basic Test</title>
+
+        <script src="../src/htmlartisan.js" type="text/javascript"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+
+                var iterItems = ['a', 'b', 'c', 'd', 'e'];
+
+                var html = h(
+                    'div', {
+                        class: 'artisan-example wrapper',
+                        style: {color: '#333', width: '90%', margin: '0 auto', 'background-color': '#F2F2F2'},
+                        events: {
+                            click: function() {
+                                console.log('The HtmlArtisan example div has been clicked!');
+                            }
+                        },
+                        callback: function() {
+                            console.log(this);
+                            console.log('This code is executed once the object creation is finished!');
+
+                            this.anAttachedMethod = function() {
+                                console.log('my attached method');
+                            }
+
+                            this.anAttachedProperty = 'foobar';
+                        }
+                    }, [
+                        ['div', {class: 'container'}, [
+                            ['p', null, 'HtmlArtisan is a lightweight JS library for efficient, quick and readable creation of complex HTML structures.'],
+                            ['a', {href: 'https://twitter.com/Gabri239', style: 'display: block;'}, 'Created by Gabriel Rodríguez Fernández']
+                        ]],
+                        ['ul', {id: 'elements'}, [
+                            ['li', null, 'One'],
+                            ['li', null, 'Two'],
+                            ['li', null, 'Three'],
+                            ['li', null, 'Four'],
+                            ['li', null, 'Five'],
+                            ['li', null, 'Six']
+                        ]],
+                        ['ol', {id: 'elements-from-function'}, function() {
+                            var elems = [];
+                            for (var i = 0; i < iterItems.length; i++) {
+                                var elem = iterItems[i];
+                                elems.push(
+                                    h('span', null, iterItems[i])
+                                );
+                            }
+                        }]
+                    ]
+                );
+
+                document.body.appendChild(html);
+
+            });
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>
