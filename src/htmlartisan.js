@@ -65,7 +65,7 @@
             }
         }
 
-        if (typeof children !== "undefined" && !(children instanceof Array)) {
+        if (typeof children !== "undefined" && (!(children instanceof Array) || !(children[0] instanceof Array))) {
             children = [children];
         }
 
