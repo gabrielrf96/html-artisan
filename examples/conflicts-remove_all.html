@@ -11,20 +11,24 @@
             window.h = function() {
                 console.log('Original h');
             }
+            window.HtmlArtisan = function() {
+                console.log('Original HtmlArtisan');
+            }
         </script>
 
         <script src="../src/htmlartisan.js" type="text/javascript"></script>
 
         <script>
             document.addEventListener("DOMContentLoaded", function() {
-                // Restore original namespace using default HtmlArtisan namespace
-                h.fixConflict(true);
+                // Restore original namespace and alias (remove all )
+                var ht = h.fixConflict(true);
 
-                // h() is now the one set by the other library!
+                // h() and HtmlArtisan() are now the ones set first by the other libraries!
                 h();
+                HtmlArtisan();
 
                 document.body.appendChild(
-                    HtmlArtisan('p', null, 'Original "h" namespace restored. HtmlArtisan set to default namespace "HtmlArtisan"')
+                    ht('p', null, 'Original "h" namespace restored. HtmlArtisan set to namespace "ht"')
                 );
             });
         </script>
