@@ -18,13 +18,13 @@
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 // Restore original namespace and set HtmlArtisan to a custom namespace
-                window.customNamespace = h.fixConflict();
+                window.ht = h.fixConflict();
 
                 // h() is now the one set by the other library!
                 h();
 
                 document.body.appendChild(
-                    customNamespace('p', null, 'Original "h" namespace restored. HtmlArtisan set to custom namespace "customNamespace"')
+                    ht('p', null, 'Original "h" namespace restored. HtmlArtisan set to custom namespace "ht"')
                 );
             });
         </script>

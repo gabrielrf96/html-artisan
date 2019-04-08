@@ -1,9 +1,10 @@
 /*! HTML Artisan v1.0.0 | (c) Gabriel Rodríguez Fernández | https://twitter.com/Gabri239 */
 
-(function(namespace) {
+(function(namespace, alias) {
 
-    // If the namespace or the utility function name already exist, store them so they can be restored
-    var initialWindowNamespace = typeof window[namespace] !== 'undefined' ? window[namespace]:null;
+    // If the namespace or the alias function name already exist, store them so they can be restored
+    var initialHtmlArtisanObject = typeof window[namespace] !== 'undefined' ? window[namespace]:null;
+    var initialAliasObject = typeof window[alias] !== 'undefined' ? window[alias]:null;
 
     // Attributes that should be initially ignored (they are processed in some special way)
     var ignoredAttributes = ['events', 'style', 'callback'];
@@ -104,10 +105,10 @@
         return element;
     }
 
-    HtmlArtisan.fixConflict = function(setToDefaultNamespace) {
-        window[namespace] = initialWindowNamespace;
-        if (setToDefaultNamespace === true) {
-            window.HtmlArtisan = HtmlArtisan;
+    HtmlArtisan.fixConflict = function(removeAll) {
+        window[alias] = initialAliasObject;
+        if (removeAll === true) {
+            window[namespace] = initialHtmlArtisanObject;
         }
         return HtmlArtisan;
     };
@@ -116,5 +117,6 @@
     HtmlArtisan.version = '1.0.0';
 
     window[namespace] = HtmlArtisan;
+    window[alias] = HtmlArtisan;
 
-})('h');
+})('HtmlArtisan', 'h');
