@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>HtmlArtisan - child functions test</title>
+
+        <style>
+            body > * {
+                margin: 0;
+                padding: 40px 0;
+                border-top: 1px solid #000;
+            }
+        </style>
+
+        <script src="../src/htmlartisan.js" type="text/javascript"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.body.appendChild(
+                    h('div', null, function() {
+                        return h('p', null, 'This is a simple element returned by a function');
+                    })
+                );
+                document.body.appendChild(
+                    h('ul', null, function() {
+                        var elems = ['1', '2', '3', '4', '5'];
+                        var result = [];
+                        for (var i = 0; i < elems.length; i++) {
+                            result.push( h('li', null, elems[i]) );
+                        }
+                        return result;
+                    })
+                );
+            });
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>
