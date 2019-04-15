@@ -19,19 +19,19 @@
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 document.body.appendChild(
-                    h('div', null, function() {
+                    h('div', null, [function() {
                         return h('p', null, 'This is a simple element returned by a function');
-                    })
+                    }])
                 );
                 document.body.appendChild(
-                    h('ul', null, function() {
+                    h('ul', null, [function() {
                         var elems = ['1', '2', '3', '4', '5'];
                         var result = [];
                         for (var i = 0; i < elems.length; i++) {
                             result.push( h('li', null, elems[i]) );
                         }
                         return result;
-                    })
+                    }])
                 );
             });
         </script>

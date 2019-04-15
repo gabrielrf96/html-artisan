@@ -45,7 +45,7 @@
                             ['li', null, 'Five'],
                             ['li', null, 'Six']
                         ]],
-                        ['ol', {id: 'elements-from-function'}, function() {
+                        ['ol', {id: 'elements-from-function'}, [function() {
                             var elems = [];
                             for (var i = 0; i < iterItems.length; i++) {
                                 var elem = iterItems[i];
@@ -54,7 +54,7 @@
                                 );
                             }
                             return elems;
-                        }]
+                        }]]
                     ]
                 );
 

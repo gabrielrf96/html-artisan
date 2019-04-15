@@ -1,4 +1,4 @@
-/*! HTML Artisan v1.0.0 | (c) Gabriel Rodríguez Fernández | https://twitter.com/Gabri239 */
+/*! HTML Artisan v1.2.0 | (c) Gabriel Rodríguez Fernández | https://twitter.com/Gabri239 */
 
 (function(namespace, alias) {
 
@@ -16,12 +16,13 @@
      *     Valid attributes are:
      *     - Any valid HTML attribute, including data-* attributes.
      *     CSS classes can be passed as either 'className' or 'class'.
-     *     The 'style' attribute can be passed as a string, or a map containing pairs of cssRule: cssValue
+     *     The 'style' attribute can be passed as a string, or a map containing pairs of cssProperty: cssValue
      *     - 'events': a map of event handlers. E.g. {click: function() {...}, mouseover: function() {...}}
      *     - 'callback': a function that will be called once the element and all its children are created,
      *     immediately before returning the element. In this function's environment, 'this' is the element
      *     that has been created (with all children already attached, too).
-     * @param {Array[]} children An array of children elements. Valid elements that can be passed as children:
+     * @param {Array[]|string} children An array of children elements, or a single string (text node child).
+     *     Valid elements that can be passed as children:
      *     - An element.
      *     - An array representing another element that HtmlArtisan should create: [tag, attributes, children]
      *     - A function returning an element or an array of elements.
@@ -66,11 +67,12 @@
             }
         }
 
-        if (typeof children !== "undefined" && (!(children instanceof Array) || !(children[0] instanceof Array))) {
-            children = [children];
-        }
+        if (typeof children !== "undefined") {
+            // If a single string is passed as 'children', convert to an array (utility for the creating of text child nodes)
+            if (typeof children === 'string') {
+                children = [children];
+            }
 
-        if (children instanceof Array) {
             for (var i = 0; i < children.length; i++) {
                 if (children[i] !== null) {
                     if (children[i] instanceof Node) {
@@ -114,7 +116,7 @@
     };
 
     HtmlArtisan.author = 'Gabriel Rodríguez Fernández | https://twitter.com/Gabri239';
-    HtmlArtisan.version = '1.0.0';
+    HtmlArtisan.version = '1.2.0';
 
     window[namespace] = HtmlArtisan;
     window[alias] = HtmlArtisan;
