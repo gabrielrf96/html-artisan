@@ -1,4 +1,4 @@
-# HTML Artisan *v1.1.0*
+# HTML Artisan *v1.2.0*
 
 ***HTML Artisan*** is a lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures.
 
@@ -111,3 +111,227 @@ Will generate this HTML structure:
 ```
 
 For an extended look into how `HtmlArtisan()` works (and its parameters) you can check the [API reference](API.md).
+
+### Advanced functionalities and tips
+***HTML Artisan*** comes with some convenient functionalities intended to boost your productivity.
+
+#### Defining attributes
+If provided, the `attributes` parameter will define a series of HTML attributes for our element.
+This parameter acts like a map, where all the **keys** are the attribute **names**.
+So, for example, we can easily set an **id**, **class** and some custom **data** attributes for our element:
+
+Code:
+```javascript
+h('div', {
+    id: 'super-container',
+    'class': ''
+})
+```
+
+Output:
+```html
+
+```
+
+HTML Artisan will automatically decide whether each passed attribute should be assigned as an object property, or as an HTML element attribute. You need not worry about that.
+
+If you need to set an object property manually (because you need, for example, to set a method on the element you are creating), you can do so using callbacks. See the callbacks section for more information on this topic.
+
+Some things to take into account while defining attributes:
+- Since 'class' is a reserved word, it should be quoted.
+
+- CSS classes can be passed as either 'class' or 'className'.
+
+- You can pass the 'style' attribute as either a *raw string* or a map of *cssProperty: cssValue*:
+
+    ```javascript
+    h('div', {
+        'style': 'margin: 20px; padding: 10px; border: 1px solid red; font-size: 16px;'
+    });
+    // This is equivalent:
+    h('div', {
+        'style': {
+            margin: '20px',
+            padding: '10px',
+            border: '1px solid red',
+            'font-size': '16px'
+        }
+    });
+    ```
+
+- There are some special HTML Artisan attributes you can pass:
+
+    - **events**: a map of event types and handlers:
+
+        ```javascript
+        h('div', {
+            events: {
+                click: function(e) {
+                    console.log('I have been clicked!');
+                }
+                // ...
+            }
+        });
+        ```
+
+    - **callback**: a callback function that will be executed once the object (and all its children) has finished being created. For more information on this topic, check the callbacks section of the documentation.
+
+
+#### Creating children
+As you have seen, `HtmlArtisan()` accepts a `children` parameter.
+
+You can pass a **single string**, or an **array of child elements**.
+
+##### Passing a string
+If you pass a single string, a single child text node will be created:
+
+Code:
+```javascript
+h('p', null, 'This a paragraph');
+// This is equivalent to passing the string as the only element of a children array:
+h('p', null, ['This an equally valid way of creating a paragraph'])
+```
+
+Output:
+```html
+<p>This is a paragraph</p>
+
+<p>This an equally valid way of creating a paragraph</p>
+```
+
+##### Passing an array of children
+Children of an HTML-Artisan-defined element can be represented in a variety of ways:
+
+- An **HTML element** that has been previously created:
+
+    ```javascript
+    var childOne = document.createElement('div');
+    var childTwo = document.createElement('p');
+    var result = h('div', null, [childOne, childTwo]);
+    ```
+
+- An **array representing another 'call' to HtmlArtisan()**:
+
+    ```javascript
+    var element = h('div', null, [
+        ['div', {'class': 'my-div'}] // if no children are passed, an empty element will be created
+    ]);
+    ```
+
+- A **function** that returns an element or an array of elements:
+
+    ```javascript
+    var elems = ['1', '2', '3', '4', '5'];
+    var element = h('ul', null, [
+        function() {
+            var result = [];
+            for (var i = 0; i < elems.length; i++) {
+                result.push( h('li', null, elems[i]) );
+            }
+            return result;
+        }
+    ]);
+    ```
+
+    Note that these elements need to be HTML elements, created either with HTML Artisan calls or with the native DOM API.
+
+- A **string**. Like we said earlier, passing a string will create a text child node:
+
+    ```javascript
+    h('p', null, ['This is a paragraph!']);
+    ```
+
+#### Using callbacks
+Sometimes, you need to do some special post-processing on the elements you have created.
+
+Using the DOM API, this is very simple, since every object is created in a top-level environment, and are accessible if you need them:
+
+```javascript
+var elem1 = document.createElement('div');
+var child = document.createElement('p');
+
+elem1.appendChild(child);
+
+// 'child' is accessible, we can do some extra coding on it:
+child.myMethod = function() {
+    // ...
+}
+doSomeStuff(child);
+// ...
+```
+
+Looking at an **HTML Artisan** piece of code, you might be tempted to think that child elements are inaccessible.
+
+Yes, the code is well-structured and easy to read... but what if you need to touch a child element? Do you need to create it in advance and then pass it as a parameter? Doesn't that defeat the entire purpose of HTML Artisan?
+
+To solve that issue, we have **callback** functions. A callback function defined for an HTML Artisan element will be executed once the element has been created. An HTML Artisan element is considered 'created' once:
+
+- The element itself has been created.
+- All attributes, standard and special, have been attached to it.
+- All defined children hierarchy has been created and already appended to the element.
+
+So, if you define a callback function for an element, you can access that element and do some post-processing on it **when it has already been created and has all its beautiful children already appended to it**.
+
+A callback function can be defined in two ways:
+
+- By passing a **callback** attribute to the `attributes` parameter:
+
+    ```javascript
+    h('div', {
+        callback: function() {
+            //...
+        }
+    })
+    ```
+
+- By passing a function directly into the `callback` parameter:
+
+    ```javascript
+    h('div', null, null, function() {
+        //...
+    })
+    ```
+
+If both ways are used at the same time, the second one will prevail (and it will be the only one to be executed).
+
+In the scope of an HTML Artisan callback function, `this` is the created element whose callback function we're defining. Here's a quick example of this:
+
+```javascript
+h('div', {'class': 'container'}, [
+    ['p', {'class': 'first-level-child'}, [
+        ['a', {'class': 'second-level-child'}, null, function() {
+            // 'this' is the 'second-level-child' element
+            this.specialMethod = function() {
+                // ...
+            }
+
+            this.getSomethingUseless = function() { return null; }
+
+            // Some more post-processing
+            // ...
+        }]
+    ]]
+]);
+```
+
+Of course, that callback function can be extracted to un-clutter the tree-generating code:
+
+```javascript
+function postProcessLink() {
+    // 'this' is the 'second-level-child' element
+    this.specialMethod = function() {
+        // ...
+    }
+
+    this.getSomethingUseless = function() { return null; }
+
+    // Some more post-processing
+    // ...
+}
+
+h('div', {'class': 'container'}, [
+    ['p', {'class': 'first-level-child'}, [
+        ['a', {'class': 'second-level-child'}, null, postProcessLink]
+    ]]
+]);
+```
