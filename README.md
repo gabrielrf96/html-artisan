@@ -124,13 +124,15 @@ Code:
 ```javascript
 h('div', {
     id: 'super-container',
-    'class': ''
-})
+    'class': 'my-div my-thing',
+    'data-has-things': 'yas',
+    'data-foo': 'bar'
+});
 ```
 
 Output:
 ```html
-
+<div id="super-container" class="my-div my-thing" data-has-things="yas" data-foo="bar"></div>
 ```
 
 HTML Artisan will automatically decide whether each passed attribute should be assigned as an object property, or as an HTML element attribute. You need not worry about that.
