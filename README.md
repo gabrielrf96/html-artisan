@@ -337,3 +337,23 @@ h('div', {'class': 'container'}, [
     ]]
 ]);
 ```
+
+## HTML Artisan's present and future
+I'm still working to improve **HTML Artisan** and bring new functionalities and utilities.
+
+### Currently working on / future improvements
+I'm currently working on the following points to improve **HTML Artisan**:
+
+- List of supported browsers and versions
+- Error and warning logging to improve development workflows
+- Raw attributes support
+- Iterating utilities
+- Conditional elements
+
+### Bug reporting and contact
+If you experience any kind of trouble while using this library, please feel free to contact me to report any bugs or problems.
+
+You can contact me by:
+
+- Sending me an e-mail to <a href="mailto:dev.gabrielrf@gmail.com">**dev.gabrielrf@gmail.com**</a>
+- DM me on Twitter: <a href="https://twitter.com/Gabri239">**Gabri239**</a>
