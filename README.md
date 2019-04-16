@@ -2,6 +2,11 @@
     <img width="80%" src="graphic/html-artisan-logo-large.svg">
 </p>
 <br/>
+<br/>
+<p align="center">
+    <img width="420px" src="graphic/usage.gif">
+</p>
+<br/>
 
 # HTML Artisan *v1.2.0*
 
