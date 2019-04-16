@@ -115,6 +115,8 @@ For an extended look into how `HtmlArtisan()` works (and its parameters) you can
 ### Advanced functionalities and tips
 ***HTML Artisan*** comes with some convenient functionalities intended to boost your productivity.
 
+---
+
 #### Defining attributes
 If provided, the `attributes` parameter will define a series of HTML attributes for our element.
 This parameter acts like a map, where all the **keys** are the attribute **names**.
@@ -178,6 +180,7 @@ Some things to take into account while defining attributes:
 
     - **callback**: a callback function that will be executed once the object (and all its children) has finished being created. For more information on this topic, check the callbacks section of the documentation.
 
+---
 
 #### Creating children
 As you have seen, `HtmlArtisan()` accepts a `children` parameter.
@@ -242,6 +245,8 @@ Children of an HTML-Artisan-defined element can be represented in a variety of w
     ```javascript
     h('p', null, ['This is a paragraph!']);
     ```
+
+---
 
 #### Using callbacks
 Sometimes, you need to do some special post-processing on the elements you have created.
@@ -338,6 +343,8 @@ h('div', {'class': 'container'}, [
 ]);
 ```
 
+---
+
 ## HTML Artisan's present and future
 I'm still working to improve **HTML Artisan** and bring new functionalities and utilities.
 
@@ -355,5 +362,6 @@ If you experience any kind of trouble while using this library, please feel free
 
 You can contact me by:
 
+- Opening an <a href="https://github.com/gabrielrf96/html-artisan/issues">**issue on GitHub**</a>
 - Sending me an e-mail to <a href="mailto:dev.gabrielrf@gmail.com">**dev.gabrielrf@gmail.com**</a>
 - DM me on Twitter: <a href="https://twitter.com/Gabri239">**Gabri239**</a>
