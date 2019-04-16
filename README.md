@@ -56,7 +56,7 @@ h('div', {
 
 ## Why should I use HTML Artisan?
 
-- **Very light**: the library is about *~2 KB* in its minified version.
+- **Very light**: the library is about *~1.2 KB* in its minified <a href="https://github.com/gabrielrf96/html-artisan/releases">release version</a>.
 - Keeps all the **performance** benefits of vanilla JS but with a **prettier syntax**. HTML structures are generated using core JS functionality, so it's very **efficient** and **fast**.
 - Produces **structured**, **easy to read** and **maintainable** code.
 - Can be **easily combined** with other libraries, like jQuery, to boost productivity.
