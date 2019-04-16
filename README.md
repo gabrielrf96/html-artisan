@@ -1,3 +1,8 @@
+<p align="center">
+    <img width="80%" src="graphic/html-artisan-logo-large.svg">
+</p>
+<br/>
+
 # HTML Artisan *v1.2.0*
 
 ***HTML Artisan*** is a lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures.
@@ -365,3 +370,9 @@ You can contact me by:
 - Opening an <a href="https://github.com/gabrielrf96/html-artisan/issues">**issue on GitHub**</a>
 - Sending me an e-mail to <a href="mailto:dev.gabrielrf@gmail.com">**dev.gabrielrf@gmail.com**</a>
 - DM me on Twitter: <a href="https://twitter.com/Gabri239">**Gabri239**</a>
+
+<br/>
+<br/>
+<p align="center">
+  <img width="20%" src="graphic/html-artisan-logo-small.svg">
+</p>
