@@ -8,6 +8,18 @@
 </p>
 <br/>
 
+**Key aspects**
+<ul>
+    <li><a href="#introduction">What is HTML Artisan?</a></li>
+    <li><a href="#namespace-conflicts">Fixing namespace conflicts</a></li>
+    <li><a href="#basic-use">Basic usage</a></li>
+    <li><a href="#advanced-use">Advanced functionalities</a></li>
+    <li><a href="API.md">API Reference</a></li>
+    <li><a href="#contact">Contact and bug reporting</a></li>
+</ul>
+<br/>
+
+<a name="introduction"></a>
 # HTML Artisan *v1.2.0*
 
 ***HTML Artisan*** is a lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures.
@@ -74,6 +86,7 @@ Once included in your project, ***HTML Artisan*** will create a namespace/object
 
 ***HTML Artisan*** will also create a short, convenient alias for this object: `h`
 
+<a name="namespace-conflicts"></a>
 ### Namespace conflict
 If this convenience alias causes a conflict in your project, because the `h` namespace needs to be used by some other library (or simply because you don't fancy that name, or want to use it for another global variable), you can easily fix this conflict with `HtmlArtisan.fixConflict()`.
 
@@ -90,8 +103,11 @@ var ht = HtmlArtisan.fixConflict(true);
 // Now 'HtmlArtisan' and 'h' don't exist (or have been restored to their original selves)
 ```
 
+<a name="basic-use"></a>
 ### Basic usage
 The ***HTML Artisan*** object itself is a function besides being its own namespace (just like jQuery). Calling the `HtmlArtisan` object as a function will unleash its HTML-generating power.
+
+Remember, calling `HtmlArtisan` is equivalent to calling its alias, `h`.
 
 For example, this code:
 ```javascript
@@ -122,6 +138,7 @@ Will generate this HTML structure:
 
 For an extended look into how `HtmlArtisan()` works (and its parameters) you can check the [API reference](API.md).
 
+<a name="advanced-use"></a>
 ### Advanced functionalities and tips
 ***HTML Artisan*** comes with some convenient functionalities intended to boost your productivity.
 
@@ -367,6 +384,7 @@ I'm currently working on the following points to improve **HTML Artisan**:
 - Iterating utilities
 - Conditional elements
 
+<a name="contact"></a>
 ### Bug reporting and contact
 If you experience any kind of trouble while using this library, please feel free to contact me to report any bugs or problems.
 
