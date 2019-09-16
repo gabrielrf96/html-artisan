@@ -13,6 +13,8 @@
 
                 var iterItems = ['a', 'b', 'c', 'd', 'e'];
 
+                var nullVariable = null;
+
                 var html = h(
                     'div', {
                         class: 'artisan-example wrapper',
@@ -54,7 +56,8 @@
                                 );
                             }
                             return elems;
-                        }]]
+                        }]],
+                        ['div', {class: 'empty'}, nullVariable] // Passing a null value is valid, and just leaves the element empty
                     ]
                 );
 
