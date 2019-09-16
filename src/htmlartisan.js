@@ -37,8 +37,11 @@
         var element = document.createElement(tag);
 
         if (typeof attributes !== 'undefined' && attributes !== null) {
-            if (typeof attributes.if !== 'undefined' && attributes.if !== null && !attributes.if) {
-                return null;
+            if (typeof attributes.if !== 'undefined' && attributes.if !== null) {
+                var shouldBeRendered = typeof attributes.if === 'function' ? attributes.if():attributes.if;
+                if (!shouldBeRendered) {
+                    return null;
+                }
             }
 
             for (var attribute in attributes) {
