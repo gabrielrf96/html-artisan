@@ -20,7 +20,7 @@
 <br/>
 
 <a name="introduction"></a>
-# HTML Artisan *v1.2.0*
+# HTML Artisan *v1.2.1*
 
 ***HTML Artisan*** is a lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures.
 
