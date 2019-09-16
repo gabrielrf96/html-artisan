@@ -1,4 +1,4 @@
-/*! HTML Artisan v1.2.0 | (c) Gabriel Rodríguez Fernández | https://twitter.com/Gabri239 */
+/*! HTML Artisan v1.2.2 | (c) Gabriel Rodríguez Fernández | https://twitter.com/Gabri239 */
 
 (function(namespace, alias) {
 
@@ -124,7 +124,7 @@
     };
 
     HtmlArtisan.author = 'Gabriel Rodríguez Fernández | https://twitter.com/Gabri239';
-    HtmlArtisan.version = '1.2.0';
+    HtmlArtisan.version = '1.2.2';
 
     window[namespace] = HtmlArtisan;
     window[alias] = HtmlArtisan;

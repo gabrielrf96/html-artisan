@@ -20,7 +20,7 @@
 <br/>
 
 <a name="introduction"></a>
-# HTML Artisan *v1.2.0*
+# HTML Artisan *v1.2.2*
 
 ***HTML Artisan*** is a lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures.
 
@@ -205,6 +205,8 @@ Some things to take into account while defining attributes:
         });
         ```
 
+    - **if**: a condition that will determine whether or not this element (and all its children) should be rendered. It can be an expression, a boolean value or a function. To see how it works, you can [check out this example](examples/conditional_elements.html).
+
     - **callback**: a callback function that will be executed once the object (and all its children) has finished being created. For more information on this topic, check the callbacks section of the documentation.
 
 ---
@@ -382,7 +384,6 @@ I'm currently working on the following points to improve **HTML Artisan**:
 - Error and warning logging to improve development workflows
 - Raw attributes support
 - Iterating utilities
-- Conditional elements
 
 <a name="contact"></a>
 ### Bug reporting and contact
