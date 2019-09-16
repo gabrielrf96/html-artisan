@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>HtmlArtisan - Conditional Elements</title>
+
+        <script src="../src/htmlartisan.js" type="text/javascript"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+
+                // This element should not be created at all
+                document.body.append(
+                    h('div', {'if': false})
+                );
+
+                // This element should have only the first paragraph
+                document.body.append(
+                    h('div', {'if': false})
+                );
+
+            });
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>
