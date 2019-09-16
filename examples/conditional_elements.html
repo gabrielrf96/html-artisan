@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>HtmlArtisan - Conditional Elements</title>
+
+        <style>
+            body > div {
+                margin: 10px 0;
+                padding: 5px;
+                border: 1px solid #CECECE;
+                background-color: #F2F2F2;
+            }
+        </style>
+
+        <script src="../src/htmlartisan.js" type="text/javascript"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+
+                // This element has no 'if' condition, so it will appear without trouble
+                document.body.appendChild(
+                    h('div', null, [
+                        ['p', null, 'Unconditionally!']
+                    ])
+                );
+
+                // This element should be completely empty
+                document.body.appendChild(
+                    h('div', null, [
+                        ['p', {'if': false}, 'This paragraph will never appear!'],
+                        ['p', {'if': false}, 'Neither will this one!']
+                    ])
+                );
+
+                // This element should have only the first paragraph
+                document.body.appendChild(
+                    h('div', null, [
+                        ['p', {'if': true}, 'You can read this!'],
+                        ['p', {'if': false}, 'This one will not be rendered.']
+                    ])
+                );
+
+                // This element's content will vary depending on whether today's an even or odd day of the month
+                var today = new Date();
+                var todayIsEven = (today.getDate() % 2 == 0);
+
+                document.body.appendChild(
+                    h('div', null, [
+                        ['div', {'if': todayIsEven}, [
+                            ['p', null, 'If you can read this, today is an even day!'],
+                            ['p', null, 'Today is: ' + today.getDate()]
+                        ]],
+                        ['div', {'if': !todayIsEven}, [
+                            ['p', null, "Such a shame! It's an odd day isn't it?"],
+                            ['p', null, 'Today is: ' + today.getDate()]
+                        ]]
+                    ])
+                );
+
+                // Conditions can also be specified passing functions
+                document.body.appendChild(
+                    h('div', null, [
+                        ['div', { 'if': function() { return 1+1 == 2; } }, [
+                            ['p', null, 'Hello there! :)']
+                        ]]
+                    ])
+                );
+
+                // Of course, for functions that require parameters, you can just invoke the function normally
+                function sumIsOk(a, b, res) {
+                    return a + b == res;
+                }
+
+                document.body.appendChild(
+                    h('div', null, [
+                        ['div', { 'if': sumIsOk(1, 1, 2) }, [
+                            ['p', null, 'Hello there 2! :)']
+                        ]]
+                    ])
+                );
+
+                // Take into account that a false-resulting condition on a root element will return null
+                // Therefore, this appendChild will fail
+                try {
+                    document.body.appendChild(
+                        h('div', {'if': false}, 'No div around here, keep walking!')
+                    )
+                } catch (e) {
+                    console.error('Failed to append! :(')
+                }
+
+                // So, if you use an 'if' condition on a root element, be sure to check it for null before trying to append it!
+                var userInputA = 2;
+                var userInputB = 4;
+
+                var elementThatCouldBeNull = h('div', { 'if': sumIsOk(userInputA, userInputB, 6) }, 'Good job!');
+                if (elementThatCouldBeNull !== null) {
+                    document.body.appendChild( elementThatCouldBeNull );
+                }
+
+            });
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>
