@@ -69,7 +69,7 @@
 
         if (typeof children !== "undefined") {
             // If a single string is passed as 'children', convert to an array (utility for the creating of text child nodes)
-            if (typeof children === 'string') {
+            if (typeof children === 'string' || children === null) {
                 children = [children];
             }
 
@@ -116,7 +116,7 @@
     };
 
     HtmlArtisan.author = 'Gabriel Rodríguez Fernández | https://twitter.com/Gabri239';
-    HtmlArtisan.version = '1.2.0';
+    HtmlArtisan.version = '1.2.1';
 
     window[namespace] = HtmlArtisan;
     window[alias] = HtmlArtisan;
