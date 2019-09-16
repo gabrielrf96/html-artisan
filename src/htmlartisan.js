@@ -7,7 +7,7 @@
     var initialAliasObject = typeof window[alias] !== 'undefined' ? window[alias]:null;
 
     // Attributes that should be initially ignored (they are processed in some special way)
-    var ignoredAttributes = ['events', 'style', 'callback'];
+    var ignoredAttributes = ['events', 'style', 'if', 'callback'];
 
     /**
      * Creates an HTML element with the desired tag and attributes, and attaches the desired children.
@@ -37,6 +37,10 @@
         var element = document.createElement(tag);
 
         if (typeof attributes !== 'undefined' && attributes !== null) {
+            if (typeof attributes.if !== 'undefined' && attributes.if !== null && !attributes.if) {
+                return null;
+            }
+
             for (var attribute in attributes) {
                 if (ignoredAttributes.indexOf(attribute) === -1) {
                     if (attribute in element) {
@@ -91,9 +95,10 @@
                             document.createTextNode(children[i])
                         );
                     } else if (children[i] instanceof Array) {
-                        element.appendChild(
-                            HtmlArtisan.apply(null, children[i])
-                        );
+                        var child = HtmlArtisan.apply(null, children[i]);
+                        if (child !== null) {
+                            element.appendChild(child);
+                        }
                     }
                 }
             }
