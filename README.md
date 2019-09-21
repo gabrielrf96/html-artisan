@@ -118,7 +118,7 @@ h('div', {
     ['p', null, 'This a paragraph generated with HTML Artisan.'],
     ['p', null, 'HTML Artisan is so cool!'],
     ['p', null, [
-        "HTML Artisan's creator, Gabriel, is on "
+        "HTML Artisan's creator, Gabriel, is on ",
         ['a', {href: 'https://twitter.com/Gabri239'}, 'Twitter!'],
     ]]
 ]);
