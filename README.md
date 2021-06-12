@@ -20,7 +20,7 @@
 <br/>
 
 <a name="introduction"></a>
-# HTML Artisan *v1.2.2*
+# HTML Artisan *v1.3.0*
 
 ***HTML Artisan*** is a lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures.
 
@@ -214,16 +214,16 @@ Some things to take into account while defining attributes:
 #### Creating children
 As you have seen, `HtmlArtisan()` accepts a `children` parameter.
 
-You can pass a **single string**, or an **array of child elements**.
+You can pass a **single string / function / DOM element**, or an **array of child elements**.
 
-##### Passing a string
+##### Passing a string / function / DOM element
 If you pass a single string, a single child text node will be created:
 
 Code:
 ```javascript
-h('p', null, 'This a paragraph');
+h('p', null, 'This is a paragraph');
 // This is equivalent to passing the string as the only element of a children array:
-h('p', null, ['This an equally valid way of creating a paragraph'])
+h('p', null, ['This is an equally valid way of creating a paragraph'])
 ```
 
 Output:
@@ -232,6 +232,9 @@ Output:
 
 <p>This an equally valid way of creating a paragraph</p>
 ```
+
+Similarly, you can pass a single DOM element or a function as a single child element, without needing to enclose them
+in a children array. For more information about passing functions as children, see the next section.
 
 ##### Passing an array of children
 Children of an HTML-Artisan-defined element can be represented in a variety of ways:

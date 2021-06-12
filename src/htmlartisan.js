@@ -1,4 +1,4 @@
-/*! HTML Artisan v1.2.2 | (c) Gabriel Rodríguez Fernández | https://twitter.com/Gabri239 */
+/*! HTML Artisan v1.3.0 | (c) Gabriel Rodríguez Fernández | https://twitter.com/Gabri239 */
 
 (function(namespace, alias) {
 
@@ -21,12 +21,16 @@
      *     - 'callback': a function that will be called once the element and all its children are created,
      *     immediately before returning the element. In this function's environment, 'this' is the element
      *     that has been created (with all children already attached, too).
-     * @param {Array[]|string} children An array of children elements, or a single string (text node child).
-     *     Valid elements that can be passed as children:
-     *     - An element.
+     * @param {Array[]|HTMLElement|Function|string} children An array of children*, or a single child**.
+     *     * Valid elements that can be passed in a children array:
+     *     - A DOM element.
      *     - An array representing another element that HtmlArtisan should create: [tag, attributes, children]
      *     - A function returning an element or an array of elements.
      *     - A string. In this case, a child text node will be created and attached in this position.
+     *     ** Valid elements that can be passed as a single child (directly, without enclosing in an array):
+     *     - A DOM element.
+     *     - A function returning an element or an array of elements.
+     *     - A string. In this case, a child text node will be createed and attached.
      * @param {Function} callback This callback function works exactly the same as the one that can be passed
      *     in the 'attributes' parameter. If both of them are defined, this function will override the one from
      *     'attributes'.
@@ -75,8 +79,8 @@
         }
 
         if (typeof children !== "undefined") {
-            // If a single string is passed as 'children', convert to an array (utility for the creating of text child nodes)
-            if (typeof children === 'string' || children === null) {
+            // If a valid single element is passed as 'children', convert to an array of children
+            if (['string', 'function'].indexOf(typeof children) > -1 || children instanceof HTMLElement || children === null) {
                 children = [children];
             }
 
@@ -123,8 +127,8 @@
         return HtmlArtisan;
     };
 
-    HtmlArtisan.author = 'Gabriel Rodríguez Fernández | https://twitter.com/Gabri239';
-    HtmlArtisan.version = '1.2.2';
+    HtmlArtisan.author = 'Gabriel Rodríguez Fernández | https://www.gabrielrf.dev';
+    HtmlArtisan.version = '1.3.0';
 
     window[namespace] = HtmlArtisan;
     window[alias] = HtmlArtisan;
