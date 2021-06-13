@@ -33,6 +33,33 @@
                         return result;
                     }])
                 );
+
+                // Child functions can return any type of child expression accepted by HTML Artisan:
+                document.body.appendChild(
+                    h('div', null, [function() {
+                        var result = [];
+
+                        // A single string
+                        result.push('This is a string!')
+
+                        // A single DOM element
+                        var thing = document.createElement('p');
+                        thing.appendChild( document.createTextNode('This is a native DOM element!') );
+                        result.push(thing);
+
+                        // Another generator function (generator function nesting is possible)
+                        result.push(function() {
+                            return ['1', '2', '3', '4', '5', '6'].map(function(el) { return h('p', null, el) });
+                        });
+
+                        // HTML Artisan array expressions
+                        result.push( ['h1', null, 'Title 1'] );
+                        result.push( ['h1', null, 'Title 2'] );
+                        result.push( ['h1', null, 'Title 3'] );
+
+                        return result;
+                    }])
+                );
             });
         </script>
     </head>
