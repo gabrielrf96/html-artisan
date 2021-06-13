@@ -10,6 +10,39 @@
     var ignoredAttributes = ['events', 'style', 'if', 'callback'];
 
     /**
+     * Processes a child or array of children, and attaches them to the desired element.
+     *
+     * @param {HTMLElement} element The HTML element that the children will be attached to.
+     * @param {Array[]|HTMLElement|Function|string} children The child or children, expressed in any of the HtmlArtisan-accepted formats.
+     */
+    var _processChildrenArray = function(element, children) {
+        // If a valid single element is passed as 'children', convert to an array of children
+        if (['string', 'function'].indexOf(typeof children) > -1 || children instanceof HTMLElement || children === null) {
+            children = [children];
+        }
+
+        for (var i = 0; i < children.length; i++) {
+            if (children[i] !== null) {
+                if (children[i] instanceof Node) {
+                    element.appendChild(children[i]);
+                } else if (typeof children[i] === 'function') {
+                    var result = children[i]();
+                    _processChildrenArray(element, result);
+                } else if (typeof children[i] === 'string') {
+                    element.appendChild(
+                        document.createTextNode(children[i])
+                    );
+                } else if (children[i] instanceof Array) {
+                    var child = HtmlArtisan.apply(null, children[i]);
+                    if (child !== null) {
+                        element.appendChild(child);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Creates an HTML element with the desired tag and attributes, and attaches the desired children.
      * @param {string} tag The HTML tag for the element.
      * @param {Object} attributes A map containing pairs of attributeName: attributeValue.
@@ -79,36 +112,7 @@
         }
 
         if (typeof children !== "undefined") {
-            // If a valid single element is passed as 'children', convert to an array of children
-            if (['string', 'function'].indexOf(typeof children) > -1 || children instanceof HTMLElement || children === null) {
-                children = [children];
-            }
-
-            for (var i = 0; i < children.length; i++) {
-                if (children[i] !== null) {
-                    if (children[i] instanceof Node) {
-                        element.appendChild(children[i]);
-                    } else if (typeof children[i] === 'function') {
-                        var result = children[i]();
-                        if (result instanceof Array) {
-                            result.forEach(function(resultElem) {
-                                element.appendChild(resultElem);
-                            });
-                        } else {
-                            element.appendChild(result);
-                        }
-                    } else if (typeof children[i] === 'string') {
-                        element.appendChild(
-                            document.createTextNode(children[i])
-                        );
-                    } else if (children[i] instanceof Array) {
-                        var child = HtmlArtisan.apply(null, children[i]);
-                        if (child !== null) {
-                            element.appendChild(child);
-                        }
-                    }
-                }
-            }
+            _processChildrenArray(element, children);
         }
 
         callback = (typeof callback !== 'undefined' && callback !== null) ? callback:((attributes && attributes.callback) || null);

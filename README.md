@@ -249,6 +249,22 @@ Children of an HTML-Artisan-defined element can be represented in a variety of w
 
 - An **array representing another 'call' to HtmlArtisan()**:
 
+  This is what we call an **HTML Artisan array expression**. It is the result of enclosing the parameters you would pass to HtmlArtisan() in an array. For example:
+
+  If the call to create an element was like this:
+
+    ```javascript
+    h('div', {'class': 'my-div'}, 'This is text content!')
+    ```
+
+  Then, the equivalent HTML Artisan array expression, which could be passed as a child of another element, would be like this:
+
+    ```javascript
+    ['div', {'class': 'my-div'}, 'This is text content!']
+    ```
+
+  Here is an example of how to pass this "HTML Artisan array expressions" as children of other elements created via HtmlArtisan:
+
     ```javascript
     var element = h('div', null, [
         ['div', {'class': 'my-div'}] // if no children are passed, an empty element will be created
@@ -256,6 +272,8 @@ Children of an HTML-Artisan-defined element can be represented in a variety of w
     ```
 
 - A **function** that returns an element or an array of elements:
+
+    This is what we call a **generator function**.
 
     ```javascript
     var elems = ['1', '2', '3', '4', '5'];
@@ -270,13 +288,55 @@ Children of an HTML-Artisan-defined element can be represented in a variety of w
     ]);
     ```
 
-    Note that these elements need to be HTML elements, created either with HTML Artisan calls or with the native DOM API.
+    The element or elements returned by the generator function can be expressed in any of the ways accepted by HTML Artisan:
+    - An HTML element.
+    - A single string.
+    - An array representing another 'call' to HtmlArtisan.
+    - Another generator function (nesting is possible).
+
+    Of course, any combination of these formats is also accepted within the same generator function.
+
+    See the ***child_functions*** example for more information.
 
 - A **string**. Like we said earlier, passing a string will create a text child node:
 
     ```javascript
     h('p', null, ['This is a paragraph!']);
     ```
+
+When creating an element via HtmlArtisan, you can pass children in any of the formats above, and you can also use any combination of them as needed.
+
+Let's imagine, for instance, that you need to create an element with the following children:
+
+- A simple text node.
+- A list of paragraphs containing texts from an array.
+- A final paragraph with a custom text.
+
+You could then call HtmlArtisan like this:
+
+```javascript
+var elems = ['Text 1', 'Text 2', 'Text 3', 'Text 4', 'Text 5'];
+var element = h('div', null, [
+    'A simple text node',
+    function() {
+        return elems.map(txt => h('p', null, txt));
+    },
+    ['p', null, 'A final paragraph with a custom text.']
+]);
+```
+
+If you are able to use the spread operator in your development environment, that generator function can be completely replaced like this:
+
+```javascript
+var elems = ['Text 1', 'Text 2', 'Text 3', 'Text 4', 'Text 5'];
+var element = h('div', null, [
+    'A simple text node',
+    ...elems.map(txt => h('p', null, txt)),
+    ['p', null, 'A final paragraph with a custom text.']
+]);
+```
+
+You might still want tu use generator functions for more complex logics, though.
 
 ---
 
