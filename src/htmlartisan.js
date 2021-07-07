@@ -1,4 +1,4 @@
-/*! HTML Artisan v1.3.0 | (c) Gabriel Rodríguez Fernández | https://twitter.com/Gabri239 */
+/*! HTML Artisan v1.3.0 | (c) Gabriel Rodríguez Fernández | https://www.gabrielrf.dev */
 
 (function(namespace, alias) {
 
