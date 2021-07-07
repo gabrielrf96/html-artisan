@@ -1,4 +1,4 @@
-# HTML Artisan *v1.2.2* API Reference
+# HTML Artisan *v1.3.0* API Reference
 
 ## Content
 
@@ -25,13 +25,21 @@ The 'style' attribute can be passed as a string, or a map containing pairs of cs
 	- **'if'**: a condition that will determine whether or not this element (and all its children) should be rendered. It can be an expression, a boolean value or a function.
 	- **'callback'**: a function that will be called once the element and all its children are created, immediately before returning the element. In this function's environment, *'this'* is the element that has been created (with all children already attached, too).
 
- - **children** *{Array[]|string}* (optional)<br/>
- An array of child elements, or a single string (single text node child). If an array of children is passed, we need to take into account that each child element can be expressed or passed in a variety of ways:
-	 - With an element object, as in `document.createElement(...)`
-	 - With an array representing another HtmlArtisan element: `[tag, attributes, children]`.
+ - **children** *{Array[]|HTMLElement|Function|string}* (optional)<br/>
+ An array of children, or a single child.
+ If an array of children is passed, each child element can be expressed or passed in a variety of ways:
+	 - With a DOM element object, as in `document.createElement(...)`
+	 - With an array representing another HtmlArtisan element (HtmlArtisan array expression): `[tag, attributes, children]`.
+	 - With a function returning an element or an array of elements. The element or elements returned by a generator function can be, again, expressed in any of the formats accepted by HtmlArtisan (HTMLElement, string, HtmlArtisan array expression, and even another generator function; a combination of any number of these formats is also possible).
+	 - With a string. In this case, a child text node will be created.
+
+	These different ways can be combined as needed to build our children arrays.
+ 	Moreover, instead of passing an array of children, you can pass a single child element. In this case, the amount of ways to express that child element are more limited:
+	 - With a DOM element object.
 	 - With a function returning an element or an array of elements.
 	 - With a string. In this case, a child text node will be created.
- These different ways can be combined as needed to build our children arrays.
+
+ 	If you want to pass a single array representing another HtmlArtisan element, you have to enclose it in another array: `[ [tag, attributes, children] ]`
 
 - **callback** *{Function}* (optional)<br/>
 This callback function works exactly the same as the one that can be passed in the 'attributes' parameter. If both of them are defined, this function will override the one from 'attributes'.

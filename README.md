@@ -11,16 +11,35 @@
 **Key aspects**
 <ul>
     <li><a href="#introduction">What is HTML Artisan?</a></li>
-    <li><a href="#namespace-conflicts">Fixing namespace conflicts</a></li>
-    <li><a href="#basic-use">Basic usage</a></li>
-    <li><a href="#advanced-use">Advanced functionalities</a></li>
+    <li><a href="#why">Why should I use HTML Artisan?</a></li>
+    <li><a href="#compatibility">Browser compatibility</a></li>
+    <li><a href="#how">How to use?</a>
+        <ul>
+            <li><a href="#examples-intro">Examples</a></li>
+            <li><a href="#htmlartisan-object">The HtmlArtisan object</a></li>
+            <li><a href="#namespace-conflicts">Fixing namespace conflicts</a></li>
+            <li><a href="#basic-use">Basic usage</a></li>
+            <li><a href="#advanced-use">Advanced functionalities and tips</a>
+                <ul>
+                    <li><a href="#attributes">Defining attributes</a></li>
+                    <li><a href="#children">Creating children</a></li>
+                    <li><a href="#callbacks">Using callbacks</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><a href="#outro">HTML Artisan's present and future</a>
+        <ul>
+            <li><a href="#future">Currently working on / future improvements</a></li>
+            <li><a href="#contact">Contact and bug reporting</a></li>
+        </ul>
+    </li>
     <li><a href="API.md">API Reference</a></li>
-    <li><a href="#contact">Contact and bug reporting</a></li>
 </ul>
 <br/>
 
 <a name="introduction"></a>
-# HTML Artisan *v1.2.2*
+# HTML Artisan *v1.3.0*
 
 ***HTML Artisan*** is a lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures.
 
@@ -66,6 +85,7 @@ h('div', {
 ***HTML Artisan*** code is versatile and easy to read and maintain, as it resembles a well organized tree structure.
 
 
+<a name="why"></a>
 ## Why should I use HTML Artisan?
 
 - **Very light**: the library is about *~1.2 KB* in its minified <a href="https://github.com/gabrielrf96/html-artisan/releases">release version</a>.
@@ -74,17 +94,35 @@ h('div', {
 - Can be **easily combined** with other libraries, like jQuery, to boost productivity.
 
 
+<a name="compatibility"></a>
+## Browser compatibility
+HTML Artisan is built to be compatible with all major browsers, on both desktop and mobile devices. HTML Artisan is guaranteed to work in the following browsers, in which it has been thoroughly tested (compatibility is not, however, limited to this list):
+
+- Google Chrome
+- Mozilla Firefox
+- Microsoft Edge
+- Safari
+- Opera
+- Internet Explorer 9-11 **\***
+
+**\*** *Support for Internet Explorer will be dropped in future version 2.0.0*
+
+
+<a name="how"></a>
 ## How to use?
 
+<a name="examples-intro"></a>
 ### Examples
 In this repository, you will find a set of [examples](examples) that depict the basic use of the library, and its main functionalities and utilities. To get started you can check the basic example [here](examples/basic.html).
 
 You can also dive directly into the source code [here](src/htmlartisan.js)
 
+<a name="htmlartisan-object"></a>
 ### The HtmlArtisan object
 Once included in your project, ***HTML Artisan*** will create a namespace/object containing all functionality. This is the `HtmlArtisan` object.
 
 ***HTML Artisan*** will also create a short, convenient alias for this object: `h`
+
 
 <a name="namespace-conflicts"></a>
 ### Namespace conflict
@@ -118,7 +156,7 @@ h('div', {
     ['p', null, 'This a paragraph generated with HTML Artisan.'],
     ['p', null, 'HTML Artisan is so cool!'],
     ['p', null, [
-        "HTML Artisan's creator, Gabriel, is on "
+        "HTML Artisan's creator, Gabriel, is on ",
         ['a', {href: 'https://twitter.com/Gabri239'}, 'Twitter!'],
     ]]
 ]);
@@ -144,6 +182,7 @@ For an extended look into how `HtmlArtisan()` works (and its parameters) you can
 
 ---
 
+<a name="attributes"></a>
 #### Defining attributes
 If provided, the `attributes` parameter will define a series of HTML attributes for our element.
 This parameter acts like a map, where all the **keys** are the attribute **names**.
@@ -211,19 +250,20 @@ Some things to take into account while defining attributes:
 
 ---
 
+<a name="children"></a>
 #### Creating children
 As you have seen, `HtmlArtisan()` accepts a `children` parameter.
 
-You can pass a **single string**, or an **array of child elements**.
+You can pass a **single string / function / DOM element**, or an **array of child elements**.
 
-##### Passing a string
+##### Passing a string / function / DOM element
 If you pass a single string, a single child text node will be created:
 
 Code:
 ```javascript
-h('p', null, 'This a paragraph');
+h('p', null, 'This is a paragraph');
 // This is equivalent to passing the string as the only element of a children array:
-h('p', null, ['This an equally valid way of creating a paragraph'])
+h('p', null, ['This is an equally valid way of creating a paragraph'])
 ```
 
 Output:
@@ -232,6 +272,9 @@ Output:
 
 <p>This an equally valid way of creating a paragraph</p>
 ```
+
+Similarly, you can pass a single DOM element or a function as a single child element, without needing to enclose them
+in a children array. For more information about passing functions as children, see the next section.
 
 ##### Passing an array of children
 Children of an HTML-Artisan-defined element can be represented in a variety of ways:
@@ -246,6 +289,22 @@ Children of an HTML-Artisan-defined element can be represented in a variety of w
 
 - An **array representing another 'call' to HtmlArtisan()**:
 
+  This is what we call an **HTML Artisan array expression**. It is the result of enclosing the parameters you would pass to HtmlArtisan() in an array. For example:
+
+  If the call to create an element was like this:
+
+    ```javascript
+    h('div', {'class': 'my-div'}, 'This is text content!')
+    ```
+
+  Then, the equivalent HTML Artisan array expression, which could be passed as a child of another element, would be like this:
+
+    ```javascript
+    ['div', {'class': 'my-div'}, 'This is text content!']
+    ```
+
+  Here is an example of how to pass this "HTML Artisan array expressions" as children of other elements created via HtmlArtisan:
+
     ```javascript
     var element = h('div', null, [
         ['div', {'class': 'my-div'}] // if no children are passed, an empty element will be created
@@ -253,6 +312,8 @@ Children of an HTML-Artisan-defined element can be represented in a variety of w
     ```
 
 - A **function** that returns an element or an array of elements:
+
+    This is what we call a **generator function**.
 
     ```javascript
     var elems = ['1', '2', '3', '4', '5'];
@@ -267,7 +328,15 @@ Children of an HTML-Artisan-defined element can be represented in a variety of w
     ]);
     ```
 
-    Note that these elements need to be HTML elements, created either with HTML Artisan calls or with the native DOM API.
+    The element or elements returned by the generator function can be expressed in any of the ways accepted by HTML Artisan:
+    - An HTML element.
+    - A single string.
+    - An array representing another 'call' to HtmlArtisan.
+    - Another generator function (nesting is possible).
+
+    Of course, any combination of these formats is also accepted within the same generator function.
+
+    See the ***child_functions*** example for more information.
 
 - A **string**. Like we said earlier, passing a string will create a text child node:
 
@@ -275,8 +344,43 @@ Children of an HTML-Artisan-defined element can be represented in a variety of w
     h('p', null, ['This is a paragraph!']);
     ```
 
+When creating an element via HtmlArtisan, you can pass children in any of the formats above, and you can also use any combination of them as needed.
+
+Let's imagine, for instance, that you need to create an element with the following children:
+
+- A simple text node.
+- A list of paragraphs containing texts from an array.
+- A final paragraph with a custom text.
+
+You could then call HtmlArtisan like this:
+
+```javascript
+var elems = ['Text 1', 'Text 2', 'Text 3', 'Text 4', 'Text 5'];
+var element = h('div', null, [
+    'A simple text node',
+    function() {
+        return elems.map(txt => h('p', null, txt));
+    },
+    ['p', null, 'A final paragraph with a custom text.']
+]);
+```
+
+If you are able to use the spread operator in your development environment, that generator function can be completely replaced like this:
+
+```javascript
+var elems = ['Text 1', 'Text 2', 'Text 3', 'Text 4', 'Text 5'];
+var element = h('div', null, [
+    'A simple text node',
+    ...elems.map(txt => h('p', null, txt)),
+    ['p', null, 'A final paragraph with a custom text.']
+]);
+```
+
+You might still want tu use generator functions for more complex logics, though.
+
 ---
 
+<a name="callbacks"></a>
 #### Using callbacks
 Sometimes, you need to do some special post-processing on the elements you have created.
 
@@ -372,11 +476,24 @@ h('div', {'class': 'container'}, [
 ]);
 ```
 
+As it was also shown before, the callback could also be passed within the
+attribute map:
+
+```javascript
+h('div', {'class': 'container'}, [
+    ['p', {'class': 'first-level-child'}, [
+        ['a', {'class': 'second-level-child', callback: postProcessLink}, null]
+    ]]
+]);
+```
+
 ---
 
+<a name="outro"></a>
 ## HTML Artisan's present and future
 I'm still working to improve **HTML Artisan** and bring new functionalities and utilities.
 
+<a name="future"></a>
 ### Currently working on / future improvements
 I'm currently working on the following points to improve **HTML Artisan**:
 
@@ -394,6 +511,15 @@ You can contact me by:
 - Opening an <a href="https://github.com/gabrielrf96/html-artisan/issues">**issue on GitHub**</a>
 - Sending me an e-mail to <a href="mailto:dev.gabrielrf@gmail.com">**dev.gabrielrf@gmail.com**</a>
 - DM me on Twitter: <a href="https://twitter.com/Gabri239">**Gabri239**</a>
+
+<br/>
+<br/>
+<p align="center">
+    Made by Gabriel Rodríguez
+    <br/>
+    <a href="https://www.gabrielrf.dev">www.gabrielrf.dev</a>
+</p>
+
 
 <br/>
 <br/>
