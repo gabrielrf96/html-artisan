@@ -1,4 +1,3 @@
-/*! HTML Artisan v1.3.0 | (c) Gabriel Rodríguez Fernández | https://www.gabrielrf.dev */
 
 (function(namespace, alias) {
 
@@ -132,7 +131,7 @@
     };
 
     HtmlArtisan.author = 'Gabriel Rodríguez Fernández | https://www.gabrielrf.dev';
-    HtmlArtisan.version = '1.3.0';
+    HtmlArtisan.version = typeof __VERSION__ !== 'undefined' ? __VERSION__:null;
 
     window[namespace] = HtmlArtisan;
     window[alias] = HtmlArtisan;
