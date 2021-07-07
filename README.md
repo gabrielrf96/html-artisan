@@ -11,11 +11,30 @@
 **Key aspects**
 <ul>
     <li><a href="#introduction">What is HTML Artisan?</a></li>
-    <li><a href="#namespace-conflicts">Fixing namespace conflicts</a></li>
-    <li><a href="#basic-use">Basic usage</a></li>
-    <li><a href="#advanced-use">Advanced functionalities</a></li>
+    <li><a href="#why">Why should I use HTML Artisan?</a></li>
+    <li><a href="#compatibility">Browser compatibility</a></li>
+    <li><a href="#how">How to use?</a>
+        <ul>
+            <li><a href="#examples-intro">Examples</a></li>
+            <li><a href="#htmlartisan-object">The HtmlArtisan object</a></li>
+            <li><a href="#namespace-conflicts">Fixing namespace conflicts</a></li>
+            <li><a href="#basic-use">Basic usage</a></li>
+            <li><a href="#advanced-use">Advanced functionalities and tips</a>
+                <ul>
+                    <li><a href="#attributes">Defining attributes</a></li>
+                    <li><a href="#children">Creating children</a></li>
+                    <li><a href="#callbacks">Using callbacks</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><a href="#outro">HTML Artisan's present and future</a>
+        <ul>
+            <li><a href="#future">Currently working on / future improvements</a></li>
+            <li><a href="#contact">Contact and bug reporting</a></li>
+        </ul>
+    </li>
     <li><a href="API.md">API Reference</a></li>
-    <li><a href="#contact">Contact and bug reporting</a></li>
 </ul>
 <br/>
 
@@ -66,6 +85,7 @@ h('div', {
 ***HTML Artisan*** code is versatile and easy to read and maintain, as it resembles a well organized tree structure.
 
 
+<a name="why"></a>
 ## Why should I use HTML Artisan?
 
 - **Very light**: the library is about *~1.2 KB* in its minified <a href="https://github.com/gabrielrf96/html-artisan/releases">release version</a>.
@@ -74,17 +94,25 @@ h('div', {
 - Can be **easily combined** with other libraries, like jQuery, to boost productivity.
 
 
+<a name="compatibility"></a>
+## Browser compatibility
+// TODO: write this section
+
+
 ## How to use?
 
+<a name="examples-intro"></a>
 ### Examples
 In this repository, you will find a set of [examples](examples) that depict the basic use of the library, and its main functionalities and utilities. To get started you can check the basic example [here](examples/basic.html).
 
 You can also dive directly into the source code [here](src/htmlartisan.js)
 
+<a name="htmlartisan-object"></a>
 ### The HtmlArtisan object
 Once included in your project, ***HTML Artisan*** will create a namespace/object containing all functionality. This is the `HtmlArtisan` object.
 
 ***HTML Artisan*** will also create a short, convenient alias for this object: `h`
+
 
 <a name="namespace-conflicts"></a>
 ### Namespace conflict
@@ -144,6 +172,7 @@ For an extended look into how `HtmlArtisan()` works (and its parameters) you can
 
 ---
 
+<a name="attributes"></a>
 #### Defining attributes
 If provided, the `attributes` parameter will define a series of HTML attributes for our element.
 This parameter acts like a map, where all the **keys** are the attribute **names**.
@@ -211,6 +240,7 @@ Some things to take into account while defining attributes:
 
 ---
 
+<a name="children"></a>
 #### Creating children
 As you have seen, `HtmlArtisan()` accepts a `children` parameter.
 
@@ -340,6 +370,7 @@ You might still want tu use generator functions for more complex logics, though.
 
 ---
 
+<a name="callbacks"></a>
 #### Using callbacks
 Sometimes, you need to do some special post-processing on the elements you have created.
 
@@ -435,11 +466,24 @@ h('div', {'class': 'container'}, [
 ]);
 ```
 
+As it was also shown before, the callback could also be passed within the
+attribute map:
+
+```javascript
+h('div', {'class': 'container'}, [
+    ['p', {'class': 'first-level-child'}, [
+        ['a', {'class': 'second-level-child', callback: postProcessLink}, null]
+    ]]
+]);
+```
+
 ---
 
+<a name="outro"></a>
 ## HTML Artisan's present and future
 I'm still working to improve **HTML Artisan** and bring new functionalities and utilities.
 
+<a name="future"></a>
 ### Currently working on / future improvements
 I'm currently working on the following points to improve **HTML Artisan**:
 
@@ -457,6 +501,15 @@ You can contact me by:
 - Opening an <a href="https://github.com/gabrielrf96/html-artisan/issues">**issue on GitHub**</a>
 - Sending me an e-mail to <a href="mailto:dev.gabrielrf@gmail.com">**dev.gabrielrf@gmail.com**</a>
 - DM me on Twitter: <a href="https://twitter.com/Gabri239">**Gabri239**</a>
+
+<br/>
+<br/>
+<p align="center">
+    Made by Gabriel Rodríguez
+    <br/>
+    <a href="https://www.gabrielrf.dev">www.gabrielrf.dev</a>
+</p>
+
 
 <br/>
 <br/>
