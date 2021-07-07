@@ -99,6 +99,7 @@ h('div', {
 // TODO: write this section
 
 
+<a name="how"></a>
 ## How to use?
 
 <a name="examples-intro"></a>
