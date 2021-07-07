@@ -96,7 +96,16 @@ h('div', {
 
 <a name="compatibility"></a>
 ## Browser compatibility
-// TODO: write this section
+HTML Artisan is built to be compatible with all major browsers, on both desktop and mobile devices. HTML Artisan is guaranteed to work in the following browsers, in which it has been thoroughly tested (compatibility is not, however, limited to this list):
+
+- Google Chrome
+- Mozilla Firefox
+- Microsoft Edge
+- Safari
+- Opera
+- Internet Explorer 9-11 **\***
+
+**\*** *Support for Internet Explorer will be dropped in future version 2.0.0*
 
 
 <a name="how"></a>
