@@ -10,6 +10,45 @@
     const ignoredAttributes = ['events', 'style', 'if', 'callback'];
 
     /**
+     * Processes an attribute map, properly assigning attribute values to the element.
+     *
+     * @param {HTMLElement} element The HTML element that the attributes will be set on.
+     * @param {Object} attributes The attribute map. See HtmlArtisan function docs for more information on the attribute map format
+     */
+    const _processAttributeMap = (element, attributes) => {
+        if (typeof attributes.if !== 'undefined' && attributes.if !== null) {
+            let shouldBeRendered = typeof attributes.if === 'function' ? attributes.if():attributes.if;
+            if (!shouldBeRendered) {
+                return null;
+            }
+        }
+
+        for (let attribute in attributes) {
+            if (!ignoredAttributes.includes(attribute)) {
+                if (attribute in element) {
+                    element[attribute] = attributes[attribute];
+                } else {
+                    element.setAttribute(attribute, attributes[attribute]);
+                }
+            }
+        }
+
+        for (let event in attributes.events) {
+            element.addEventListener(event, attributes.events[event]);
+        }
+
+        if (typeof attributes.style === 'string') {
+            element.style = attributes.style;
+        } else {
+            for (let styleRule in attributes.style) {
+                if (typeof element.style[styleRule] !== 'undefined') {
+                    element.style[styleRule] = attributes.style[styleRule];
+                }
+            }
+        }
+    };
+
+    /**
      * Processes a child or array of children, and attaches them to the desired element.
      *
      * @param {HTMLElement} element The HTML element that the children will be attached to.
@@ -35,7 +74,7 @@
                 }
             }
         }
-    }
+    };
 
     /**
      * Creates an HTML element with the desired tag and attributes, and attaches the desired children.
@@ -70,36 +109,7 @@
         let element = document.createElement(tag);
 
         if (typeof attributes !== 'undefined' && attributes !== null) {
-            if (typeof attributes.if !== 'undefined' && attributes.if !== null) {
-                let shouldBeRendered = typeof attributes.if === 'function' ? attributes.if():attributes.if;
-                if (!shouldBeRendered) {
-                    return null;
-                }
-            }
-
-            for (let attribute in attributes) {
-                if (!ignoredAttributes.includes(attribute)) {
-                    if (attribute in element) {
-                        element[attribute] = attributes[attribute];
-                    } else {
-                        element.setAttribute(attribute, attributes[attribute]);
-                    }
-                }
-            }
-
-            for (let event in attributes.events) {
-                element.addEventListener(event, attributes.events[event]);
-            }
-
-            if (typeof attributes.style === 'string') {
-                element.style = attributes.style;
-            } else {
-                for (let styleRule in attributes.style) {
-                    if (typeof element.style[styleRule] !== 'undefined') {
-                        element.style[styleRule] = attributes.style[styleRule];
-                    }
-                }
-            }
+            _processAttributeMap(element, attributes);
         }
 
         if (typeof children !== "undefined") {
@@ -112,7 +122,7 @@
         }
 
         return element;
-    }
+    };
 
     HtmlArtisan.fixConflict = removeAll => {
         window[alias] = initialAliasObject;
