@@ -1,0 +1,32 @@
+{
+  "name": "html-artisan",
+  "version": "2.0.0",
+  "description": "A lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures",
+  "private": true,
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "chver": "npm version --no-git-tag-version",
+    "postchver": "node scripts/inject-version.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielrf96/html-artisan.git"
+  },
+  "author": "Gabriel Rodriguez <dev.gabrielrf@gmail.com> (https://www.gabrielrf.dev)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gabrielrf96/html-artisan/issues"
+  },
+  "homepage": "https://github.com/gabrielrf96/html-artisan#readme",
+  "devDependencies": {
+    "webpack": "^5.43.0",
+    "webpack-cli": "^4.7.2"
+  },
+  "dependencies": {
+    "replace-in-file": "^6.2.0"
+  }
+}
