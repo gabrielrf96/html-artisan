@@ -519,10 +519,8 @@ I'm still working to improve **HTML Artisan** and bring new functionalities and 
 ### Currently working on / future improvements
 I'm currently working on the following points to improve **HTML Artisan**:
 
-- List of supported browsers and versions
 - Error and warning logging to improve development workflows
 - Raw attributes support
-- Iterating utilities
 
 <a name="contact"></a>
 ### Bug reporting and contact
