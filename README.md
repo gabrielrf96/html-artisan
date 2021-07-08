@@ -536,10 +536,11 @@ I'm still working to improve **HTML Artisan** and bring new functionalities and 
 
 <a name="future"></a>
 ### Currently working on / future improvements
-I'm currently working on the following points to improve **HTML Artisan**:
+HTML Artisan has reached a point where I'm satisfied with its current functionalities and architecture, as it meets all my needs perfectly.
 
-- Error and warning logging to improve development workflows
-- Raw attributes support
+However, I'm constantly and extensively using this library in my own projects, and I'm always looking out for possible bugs and improvements, and thinking of new functionalities to implement.
+
+Therefore, while there's nothing currently in the works regarding HTML Artisan, its development is well alive and will continue in the future. Besides, it's always open to suggestions and pull requests, so if you want to collaborate, don't be shy!
 
 <a name="contact"></a>
 ### Bug reporting and contact
