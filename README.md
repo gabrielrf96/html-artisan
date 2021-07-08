@@ -28,6 +28,7 @@
             </li>
         </ul>
     </li>
+    <li><a href="#building">Building from source</a></li>
     <li><a href="#outro">HTML Artisan's present and future</a>
         <ul>
             <li><a href="#future">Currently working on / future improvements</a></li>
@@ -485,6 +486,28 @@ h('div', {'class': 'container'}, [
     ]]
 ]);
 ```
+
+---
+
+<a name="building"></a>
+## Building from source
+Since v2.0.0, HtmlArtisan uses the **webpack** bundler. To build HtmlArtisan from source, you will need to have **Node.js** and **npm** already installed.
+
+Once those requirements are met, the first step is cloning the repository:
+
+```shell
+git clone git@github.com:gabrielrf96/html-artisan.git
+```
+
+After that, `cd` into the repository, install the needed dependencies, and run the `build` command:
+
+```shell
+cd html-artisan
+npm install
+npm run build
+```
+
+Now, you will find the minified, production-ready JS file right in the `dist` directory, at the root of the repository. This is the exact same file that you can download from the [Releases](https://github.com/gabrielrf96/html-artisan/releases) section on the project's GitHub page.
 
 ---
 
