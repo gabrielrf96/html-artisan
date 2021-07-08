@@ -23,7 +23,7 @@ CSS classes can be passed as either 'className' or 'class'.
 The 'style' attribute can be passed as a string, or a map containing pairs of cssProperty: cssValue.
 	- **'events'**: a map of event handlers. E.g. {click: function() {...}, mouseover: function() {...}}
 	- **'if'**: a condition that will determine whether or not this element (and all its children) should be rendered. It can be an expression, a boolean value or a function.
-	- **'callback'**: a function that will be called once the element and all its children are created, immediately before returning the element. In this function's environment, *'this'* is the element that has been created (with all children already attached, too).
+	- **'callback'**: a function that will be called once the element and all its children are created, immediately before returning the element. In this function's environment, *'this'* is the element that has been created (with all children already attached, too). The created element is also passed as an argument to the callback function, so arrow functions can be used in this context, too.
 
  - **children** *{Array[]|HTMLElement|Function|string}* (optional)<br/>
  An array of children, or a single child.
