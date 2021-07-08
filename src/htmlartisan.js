@@ -65,7 +65,7 @@
      *
      * @returns {Element} The created element with all its children and attributes already attached
      */
-     const HtmlArtisan = (tag, attributes, children, callback) => {
+     const HtmlArtisan = (tag = 'div', attributes = null, children = null, callback = null) => {
         let element = document.createElement(tag);
 
         if (typeof attributes !== 'undefined' && attributes !== null) {
