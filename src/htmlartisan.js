@@ -14,12 +14,14 @@
      *
      * @param {HTMLElement} element The HTML element that the attributes will be set on.
      * @param {Object} attributes The attribute map. See HtmlArtisan function docs for more information on the attribute map format
+     *
+     * @returns {boolean} Boolean determining whether or not the element should be created (depending on attributes.if)
      */
     const _processAttributeMap = (element, attributes) => {
         if (typeof attributes.if !== 'undefined' && attributes.if !== null) {
             let shouldBeRendered = typeof attributes.if === 'function' ? attributes.if():attributes.if;
             if (!shouldBeRendered) {
-                return null;
+                return false;
             }
         }
 
@@ -46,6 +48,8 @@
                 }
             }
         }
+
+        return true;
     };
 
     /**
@@ -109,7 +113,10 @@
         let element = document.createElement(tag);
 
         if (typeof attributes !== 'undefined' && attributes !== null) {
-            _processAttributeMap(element, attributes);
+            let elementVisible = _processAttributeMap(element, attributes);
+            if (!elementVisible) {
+                return null;
+            }
         }
 
         if (typeof children !== "undefined") {
