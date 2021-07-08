@@ -476,6 +476,25 @@ h('div', {'class': 'container'}, [
 ]);
 ```
 
+Since v2.0.0, the created element is also passed as an argument to the callback function, so arrow functions are also suitable for callbacks:
+
+```javascript
+h('div', {'class': 'container'}, [
+    ['p', {'class': 'first-level-child'}, [
+        ['a', {'class': 'second-level-child'}, null, elem => {
+            elem.specialMethod = function() {
+                // ...
+            }
+
+            elem.getSomethingUseless = function() { return null; }
+
+            // Some more post-processing
+            // ...
+        }]
+    ]]
+]);
+```
+
 As it was also shown before, the callback could also be passed within the
 attribute map:
 

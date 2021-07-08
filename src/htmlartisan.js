@@ -47,7 +47,8 @@
      *     - 'events': a map of event handlers. E.g. {click: function() {...}, mouseover: function() {...}}
      *     - 'callback': a function that will be called once the element and all its children are created,
      *       immediately before returning the element. In this function's environment, 'this' is the element
-     *       that has been created (with all children already attached, too).
+     *       that has been created (with all children already attached, too). The created element is also passed
+     *       as a function argument (so you can use arrow functions for callbacks).
      * @param {Array[]|HTMLElement|Function|string} children An array of children*, or a single child**.
      *     * Valid elements that can be passed in a children array:
      *     - A DOM element.
@@ -106,7 +107,7 @@
 
         callback = (typeof callback !== 'undefined' && callback !== null) ? callback:((attributes && attributes.callback) || null);
         if (callback !== null) {
-            callback.apply(element);
+            callback.call(element, element);
         }
 
         return element;
