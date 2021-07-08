@@ -1,5 +1,6 @@
 
 ((namespace, alias) => {
+    'use strict';
 
     // If the namespace or the alias function name already exist, store them so they can be restored
     const initialHtmlArtisanObject = typeof window[namespace] !== 'undefined' ? window[namespace]:null;
