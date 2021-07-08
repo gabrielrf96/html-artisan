@@ -98,14 +98,13 @@ h('div', {
 ## Browser compatibility
 HTML Artisan is built to be compatible with all major browsers, on both desktop and mobile devices. HTML Artisan is guaranteed to work in the following browsers, in which it has been thoroughly tested (compatibility is not, however, limited to this list):
 
-- Google Chrome
-- Mozilla Firefox
-- Microsoft Edge
-- Safari
-- Opera
-- Internet Explorer 9-11 **\***
+- Google Chrome 49+
+- Mozilla Firefox 44+
+- Microsoft Edge 12+
+- Safari 11+
+- Opera 36+
 
-**\*** *Support for Internet Explorer will be dropped in future version 2.0.0*
+**Attention**: support for Internet Explorer and older versions of major browsers has been dropped starting at v2.0.0. If you need to use HtmlArtisan on Internet Explorer, or an older, non-ES6-compliant version of any other browser, you should use [version 1.3.0](https://github.com/gabrielrf96/html-artisan/releases/tag/v1.3.0). Be aware, however, that v1.3.0 is discontinued and will not receive future improvements and/or new functionalities.
 
 
 <a name="how"></a>
