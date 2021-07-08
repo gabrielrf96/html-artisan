@@ -28,6 +28,7 @@
             </li>
         </ul>
     </li>
+    <li><a href="#building">Building from source</a></li>
     <li><a href="#outro">HTML Artisan's present and future</a>
         <ul>
             <li><a href="#future">Currently working on / future improvements</a></li>
@@ -39,7 +40,7 @@
 <br/>
 
 <a name="introduction"></a>
-# HTML Artisan *v1.3.0*
+# HTML Artisan *v2.0.0*
 
 ***HTML Artisan*** is a lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures.
 
@@ -98,14 +99,13 @@ h('div', {
 ## Browser compatibility
 HTML Artisan is built to be compatible with all major browsers, on both desktop and mobile devices. HTML Artisan is guaranteed to work in the following browsers, in which it has been thoroughly tested (compatibility is not, however, limited to this list):
 
-- Google Chrome
-- Mozilla Firefox
-- Microsoft Edge
-- Safari
-- Opera
-- Internet Explorer 9-11 **\***
+- Google Chrome 49+
+- Mozilla Firefox 44+
+- Microsoft Edge 14+
+- Safari 11+
+- Opera 36+
 
-**\*** *Support for Internet Explorer will be dropped in future version 2.0.0*
+**Attention**: support for Internet Explorer and older versions of major browsers has been dropped starting at v2.0.0. If you need to use HtmlArtisan on Internet Explorer, or an older, non-ES6-compliant version of any other browser, you should use [version 1.3.0](https://github.com/gabrielrf96/html-artisan/releases/tag/v1.3.0). Be aware, however, that v1.3.0 is discontinued and will not receive future improvements and/or new functionalities.
 
 
 <a name="how"></a>
@@ -331,7 +331,7 @@ Children of an HTML-Artisan-defined element can be represented in a variety of w
     The element or elements returned by the generator function can be expressed in any of the ways accepted by HTML Artisan:
     - An HTML element.
     - A single string.
-    - An array representing another 'call' to HtmlArtisan.
+    - An array representing another 'call' to HtmlArtisan (an ***HTML Artisan array expression***). If you intend to return a single HTML Artisan array expression, it will need to be enclosed in additional Array brackects. Otherwise, HTML Artisan will have no way to know if it's an array expression, or an array of children.
     - Another generator function (nesting is possible).
 
     Of course, any combination of these formats is also accepted within the same generator function.
@@ -476,6 +476,25 @@ h('div', {'class': 'container'}, [
 ]);
 ```
 
+Since v2.0.0, the created element is also passed as an argument to the callback function, so arrow functions are also suitable for callbacks:
+
+```javascript
+h('div', {'class': 'container'}, [
+    ['p', {'class': 'first-level-child'}, [
+        ['a', {'class': 'second-level-child'}, null, elem => {
+            elem.specialMethod = function() {
+                // ...
+            }
+
+            elem.getSomethingUseless = function() { return null; }
+
+            // Some more post-processing
+            // ...
+        }]
+    ]]
+]);
+```
+
 As it was also shown before, the callback could also be passed within the
 attribute map:
 
@@ -489,18 +508,39 @@ h('div', {'class': 'container'}, [
 
 ---
 
+<a name="building"></a>
+## Building from source
+Since v2.0.0, HtmlArtisan uses the **webpack** bundler. To build HtmlArtisan from source, you will need to have **Node.js** and **npm** already installed.
+
+Once those requirements are met, the first step is cloning the repository:
+
+```shell
+git clone git@github.com:gabrielrf96/html-artisan.git
+```
+
+After that, `cd` into the repository, install the needed dependencies, and run the `build` command:
+
+```shell
+cd html-artisan
+npm install
+npm run build
+```
+
+Now, you will find the minified, production-ready JS file right in the `dist` directory, at the root of the repository. This is the exact same file that you can download from the [Releases](https://github.com/gabrielrf96/html-artisan/releases) section on the project's GitHub page.
+
+---
+
 <a name="outro"></a>
 ## HTML Artisan's present and future
 I'm still working to improve **HTML Artisan** and bring new functionalities and utilities.
 
 <a name="future"></a>
 ### Currently working on / future improvements
-I'm currently working on the following points to improve **HTML Artisan**:
+HTML Artisan has reached a point where I'm satisfied with its current functionalities and architecture, as it meets all my needs perfectly.
 
-- List of supported browsers and versions
-- Error and warning logging to improve development workflows
-- Raw attributes support
-- Iterating utilities
+However, I'm constantly and extensively using this library in my own projects, and I'm always looking out for possible bugs and improvements, and thinking of new functionalities to implement.
+
+Therefore, while there's nothing currently in the works regarding HTML Artisan, its development is well alive and will continue in the future. Besides, it's always open to suggestions and pull requests, so if you want to collaborate, don't be shy!
 
 <a name="contact"></a>
 ### Bug reporting and contact

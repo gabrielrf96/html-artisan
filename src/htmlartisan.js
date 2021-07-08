@@ -1,13 +1,56 @@
-/*! HTML Artisan v1.3.0 | (c) Gabriel Rodríguez Fernández | https://www.gabrielrf.dev */
 
-(function(namespace, alias) {
+((namespace, alias) => {
+    'use strict';
 
     // If the namespace or the alias function name already exist, store them so they can be restored
-    var initialHtmlArtisanObject = typeof window[namespace] !== 'undefined' ? window[namespace]:null;
-    var initialAliasObject = typeof window[alias] !== 'undefined' ? window[alias]:null;
+    const initialHtmlArtisanObject = typeof window[namespace] !== 'undefined' ? window[namespace]:null;
+    const initialAliasObject = typeof window[alias] !== 'undefined' ? window[alias]:null;
 
     // Attributes that should be initially ignored (they are processed in some special way)
-    var ignoredAttributes = ['events', 'style', 'if', 'callback'];
+    const ignoredAttributes = ['events', 'style', 'if', 'callback'];
+
+    /**
+     * Processes an attribute map, properly assigning attribute values to the element.
+     *
+     * @param {HTMLElement} element The HTML element that the attributes will be set on.
+     * @param {Object} attributes The attribute map. See HtmlArtisan function docs for more information on the attribute map format
+     *
+     * @returns {boolean} Boolean determining whether or not the element should be created (depending on attributes.if)
+     */
+    const _processAttributeMap = (element, attributes) => {
+        if (typeof attributes.if !== 'undefined' && attributes.if !== null) {
+            let shouldBeRendered = typeof attributes.if === 'function' ? attributes.if():attributes.if;
+            if (!shouldBeRendered) {
+                return false;
+            }
+        }
+
+        for (let attribute in attributes) {
+            if (!ignoredAttributes.includes(attribute)) {
+                if (attribute in element) {
+                    element[attribute] = attributes[attribute];
+                } else {
+                    element.setAttribute(attribute, attributes[attribute]);
+                }
+            }
+        }
+
+        for (let event in attributes.events) {
+            element.addEventListener(event, attributes.events[event]);
+        }
+
+        if (typeof attributes.style === 'string') {
+            element.style = attributes.style;
+        } else {
+            for (let styleRule in attributes.style) {
+                if (typeof element.style[styleRule] !== 'undefined') {
+                    element.style[styleRule] = attributes.style[styleRule];
+                }
+            }
+        }
+
+        return true;
+    };
 
     /**
      * Processes a child or array of children, and attaches them to the desired element.
@@ -15,32 +58,27 @@
      * @param {HTMLElement} element The HTML element that the children will be attached to.
      * @param {Array[]|HTMLElement|Function|string} children The child or children, expressed in any of the HtmlArtisan-accepted formats.
      */
-    var _processChildrenArray = function(element, children) {
+    const _processChildrenArray = (element, children) => {
         // If a valid single element is passed as 'children', convert to an array of children
-        if (['string', 'function'].indexOf(typeof children) > -1 || children instanceof HTMLElement || children === null) {
+        if (['string', 'function'].includes(typeof children) || children instanceof HTMLElement || children === null) {
             children = [children];
         }
 
-        for (var i = 0; i < children.length; i++) {
-            if (children[i] !== null) {
-                if (children[i] instanceof Node) {
-                    element.appendChild(children[i]);
-                } else if (typeof children[i] === 'function') {
-                    var result = children[i]();
-                    _processChildrenArray(element, result);
-                } else if (typeof children[i] === 'string') {
-                    element.appendChild(
-                        document.createTextNode(children[i])
-                    );
-                } else if (children[i] instanceof Array) {
-                    var child = HtmlArtisan.apply(null, children[i]);
-                    if (child !== null) {
-                        element.appendChild(child);
+        for (const child of children) {
+            if (child !== null) {
+                if (child instanceof Node || typeof child === 'string') {
+                    element.append(child);
+                } else if (typeof child === 'function') {
+                    _processChildrenArray(element, child());
+                } else if (child instanceof Array) {
+                    let result = HtmlArtisan.apply(null, child);
+                    if (result !== null) {
+                        element.appendChild(result);
                     }
                 }
             }
         }
-    }
+    };
 
     /**
      * Creates an HTML element with the desired tag and attributes, and attaches the desired children.
@@ -48,12 +86,13 @@
      * @param {Object} attributes A map containing pairs of attributeName: attributeValue.
      *     Valid attributes are:
      *     - Any valid HTML attribute, including data-* attributes.
-     *     CSS classes can be passed as either 'className' or 'class'.
-     *     The 'style' attribute can be passed as a string, or a map containing pairs of cssProperty: cssValue
+     *       CSS classes can be passed as either 'className' or 'class'.
+     *       The 'style' attribute can be passed as a string, or a map containing pairs of cssProperty: cssValue
      *     - 'events': a map of event handlers. E.g. {click: function() {...}, mouseover: function() {...}}
      *     - 'callback': a function that will be called once the element and all its children are created,
-     *     immediately before returning the element. In this function's environment, 'this' is the element
-     *     that has been created (with all children already attached, too).
+     *       immediately before returning the element. In this function's environment, 'this' is the element
+     *       that has been created (with all children already attached, too). The created element is also passed
+     *       as a function argument (so you can use arrow functions for callbacks).
      * @param {Array[]|HTMLElement|Function|string} children An array of children*, or a single child**.
      *     * Valid elements that can be passed in a children array:
      *     - A DOM element.
@@ -70,44 +109,13 @@
      *
      * @returns {Element} The created element with all its children and attributes already attached
      */
-    var HtmlArtisan = function(tag, attributes, children, callback) {
-        var element = document.createElement(tag);
+     const HtmlArtisan = (tag = 'div', attributes = null, children = null, callback = null) => {
+        let element = document.createElement(tag);
 
         if (typeof attributes !== 'undefined' && attributes !== null) {
-            if (typeof attributes.if !== 'undefined' && attributes.if !== null) {
-                var shouldBeRendered = typeof attributes.if === 'function' ? attributes.if():attributes.if;
-                if (!shouldBeRendered) {
-                    return null;
-                }
-            }
-
-            for (var attribute in attributes) {
-                if (ignoredAttributes.indexOf(attribute) === -1) {
-                    if (attribute in element) {
-                        element[attribute] = attributes[attribute];
-                    } else {
-                        element.setAttribute(attribute, attributes[attribute]);
-                    }
-                }
-            }
-
-            for (var event in attributes.events) {
-                var handler = attributes.events[event];
-                if (element.addEventListener) {
-                    element.addEventListener(event, handler);
-                } else {
-                    element.attachEvent('on' + event, handler);
-                }
-            }
-
-            if (typeof attributes.style === 'string') {
-                element.style = attributes.style;
-            } else {
-                for (var styleRule in attributes.style) {
-                    if (typeof element.style[styleRule] !== 'undefined') {
-                        element.style[styleRule] = attributes.style[styleRule];
-                    }
-                }
+            let elementVisible = _processAttributeMap(element, attributes);
+            if (!elementVisible) {
+                return null;
             }
         }
 
@@ -117,13 +125,13 @@
 
         callback = (typeof callback !== 'undefined' && callback !== null) ? callback:((attributes && attributes.callback) || null);
         if (callback !== null) {
-            callback.apply(element);
+            callback.call(element, element);
         }
 
         return element;
-    }
+    };
 
-    HtmlArtisan.fixConflict = function(removeAll) {
+    HtmlArtisan.fixConflict = removeAll => {
         window[alias] = initialAliasObject;
         if (removeAll === true) {
             window[namespace] = initialHtmlArtisanObject;
@@ -132,7 +140,7 @@
     };
 
     HtmlArtisan.author = 'Gabriel Rodríguez Fernández | https://www.gabrielrf.dev';
-    HtmlArtisan.version = '1.3.0';
+    HtmlArtisan.version = typeof __VERSION__ !== 'undefined' ? __VERSION__:null;
 
     window[namespace] = HtmlArtisan;
     window[alias] = HtmlArtisan;
