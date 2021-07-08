@@ -101,7 +101,7 @@ HTML Artisan is built to be compatible with all major browsers, on both desktop 
 
 - Google Chrome 49+
 - Mozilla Firefox 44+
-- Microsoft Edge 12+
+- Microsoft Edge 14+
 - Safari 11+
 - Opera 36+
 
@@ -331,7 +331,7 @@ Children of an HTML-Artisan-defined element can be represented in a variety of w
     The element or elements returned by the generator function can be expressed in any of the ways accepted by HTML Artisan:
     - An HTML element.
     - A single string.
-    - An array representing another 'call' to HtmlArtisan.
+    - An array representing another 'call' to HtmlArtisan (an ***HTML Artisan array expression***). If you intend to return a single HTML Artisan array expression, it will need to be enclosed in additional Array brackects. Otherwise, HTML Artisan will have no way to know if it's an array expression, or an array of children.
     - Another generator function (nesting is possible).
 
     Of course, any combination of these formats is also accepted within the same generator function.

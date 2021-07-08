@@ -13,7 +13,7 @@ Creates an HTML element with the desired tag and attributes, and attaches the de
 
 #### Parameters
  - **tag** *{string}*<br/>
-    The HTML tag for the element.
+    The HTML tag for the element. Defaults to 'div'.
 
  - **attributes** *{Object}* (optional)<br/>
 A map containing pairs of attributeName: attributeValue.
