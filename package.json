@@ -2,7 +2,7 @@
   "name": "html-artisan",
   "version": "2.0.0",
   "description": "A lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures",
-  "private": true,
+  "main": "src/htmlartisan.js",
   "directories": {
     "example": "examples"
   },
