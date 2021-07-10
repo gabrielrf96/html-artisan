@@ -1,3 +1,4 @@
+/*! HTML Artisan | MIT License | (c) Gabriel Rodríguez Fernández | https://www.gabrielrf.dev */
 
 ((namespace, alias) => {
     'use strict';
