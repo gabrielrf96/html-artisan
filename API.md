@@ -1,4 +1,4 @@
-# HTML Artisan *v2.0.0* API Reference
+# HTML Artisan *v2.0.1* API Reference
 
 ## Content
 

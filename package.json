@@ -1,6 +1,6 @@
 {
   "name": "html-artisan",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures",
   "main": "src/htmlartisan.js",
   "directories": {
