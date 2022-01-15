@@ -549,7 +549,7 @@ If you experience any kind of trouble while using this library, please feel free
 You can contact me by:
 
 - Opening an <a href="https://github.com/gabrielrf96/html-artisan/issues">**issue on GitHub**</a>
-- Sending me an e-mail to <a href="mailto:dev.gabrielrf@gmail.com">**dev.gabrielrf@gmail.com**</a>
+- Sending me an e-mail to <a href="mailto:contact@gabrielrf.dev">**contact@gabrielrf.dev**</a>
 - DM me on Twitter: <a href="https://twitter.com/Gabri239">**Gabri239**</a>
 
 <br/>
