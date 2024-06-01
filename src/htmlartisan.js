@@ -1,11 +1,11 @@
-/*! HTML Artisan | MIT License | (c) Gabriel Rodríguez Fernández | https://www.gabrielrf.dev */
+/*! HTML Artisan | MIT License | (c) Gabriel Rodríguez | https://www.gabrielrf.dev */
 
 ((namespace, alias) => {
     'use strict';
 
     // If the namespace or the alias function name already exist, store them so they can be restored
-    const initialHtmlArtisanObject = typeof window[namespace] !== 'undefined' ? window[namespace]:null;
-    const initialAliasObject = typeof window[alias] !== 'undefined' ? window[alias]:null;
+    const initialHtmlArtisanObject = window[namespace] ?? null;
+    const initialAliasObject = window[alias] ?? null;
 
     // Attributes that should be initially ignored (they are processed in some special way)
     const ignoredAttributes = ['events', 'style', 'if', 'callback'];
@@ -19,14 +19,15 @@
      * @returns {boolean} Boolean determining whether or not the element should be created (depending on attributes.if)
      */
     const _processAttributeMap = (element, attributes) => {
-        if (typeof attributes.if !== 'undefined' && attributes.if !== null) {
-            let shouldBeRendered = typeof attributes.if === 'function' ? attributes.if():attributes.if;
+        if ((attributes?.if ?? null) !== null) {
+            const shouldBeRendered = typeof attributes.if === 'function' ? attributes.if() : attributes.if;
+
             if (!shouldBeRendered) {
                 return false;
             }
         }
 
-        for (let attribute in attributes) {
+        for (const attribute in attributes) {
             if (!ignoredAttributes.includes(attribute)) {
                 if (attribute in element) {
                     element[attribute] = attributes[attribute];
@@ -36,15 +37,15 @@
             }
         }
 
-        for (let event in attributes.events) {
+        for (const event in attributes.events) {
             element.addEventListener(event, attributes.events[event]);
         }
 
         if (typeof attributes.style === 'string') {
             element.style = attributes.style;
         } else {
-            for (let styleRule in attributes.style) {
-                if (typeof element.style[styleRule] !== 'undefined') {
+            for (const styleRule in attributes.style) {
+                if (element.style[styleRule]) {
                     element.style[styleRule] = attributes.style[styleRule];
                 }
             }
@@ -66,16 +67,19 @@
         }
 
         for (const child of children) {
-            if (child !== null) {
-                if (child instanceof Node || typeof child === 'string') {
-                    element.append(child);
-                } else if (typeof child === 'function') {
-                    _processChildrenArray(element, child());
-                } else if (child instanceof Array) {
-                    let result = HtmlArtisan.apply(null, child);
-                    if (result !== null) {
-                        element.appendChild(result);
-                    }
+            if (child === null) {
+                continue;
+            }
+
+            if (child instanceof Node || typeof child === 'string') {
+                element.append(child);
+            } else if (typeof child === 'function') {
+                _processChildrenArray(element, child());
+            } else if (child instanceof Array) {
+                const result = HtmlArtisan.apply(null, child);
+
+                if (result !== null) {
+                    element.appendChild(result);
                 }
             }
         }
@@ -111,20 +115,21 @@
      * @returns {Element} The created element with all its children and attributes already attached
      */
      const HtmlArtisan = (tag = 'div', attributes = null, children = null, callback = null) => {
-        let element = document.createElement(tag);
+        const element = document.createElement(tag);
 
-        if (typeof attributes !== 'undefined' && attributes !== null) {
+        if (attributes !== null) {
             let elementVisible = _processAttributeMap(element, attributes);
             if (!elementVisible) {
                 return null;
             }
         }
 
-        if (typeof children !== "undefined") {
+        if (children !== null) {
             _processChildrenArray(element, children);
         }
 
-        callback = (typeof callback !== 'undefined' && callback !== null) ? callback:((attributes && attributes.callback) || null);
+        callback = callback ?? attributes?.callback ?? null;
+
         if (callback !== null) {
             callback.call(element, element);
         }
@@ -134,14 +139,16 @@
 
     HtmlArtisan.fixConflict = removeAll => {
         window[alias] = initialAliasObject;
+
         if (removeAll === true) {
             window[namespace] = initialHtmlArtisanObject;
         }
+
         return HtmlArtisan;
     };
 
-    HtmlArtisan.author = 'Gabriel Rodríguez Fernández | https://www.gabrielrf.dev';
-    HtmlArtisan.version = typeof __VERSION__ !== 'undefined' ? __VERSION__:null;
+    HtmlArtisan.author = 'Gabriel Rodríguez | https://www.gabrielrf.dev';
+    HtmlArtisan.version = typeof __VERSION__ !== 'undefined' ? __VERSION__ : null;
 
     window[namespace] = HtmlArtisan;
     window[alias] = HtmlArtisan;

@@ -40,7 +40,7 @@
 <br/>
 
 <a name="introduction"></a>
-# HTML Artisan *v2.0.1*
+# HTML Artisan *v2.1.0*
 
 ***HTML Artisan*** is a lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures.
 
@@ -89,21 +89,22 @@ h('div', {
 <a name="why"></a>
 ## Why should I use HTML Artisan?
 
-- **Very light**: the library is about *~1.2 KB* in its minified <a href="https://github.com/gabrielrf96/html-artisan/releases">release version</a>.
+- **Very light**: the library is about *~1.14 KB* in its minified <a href="https://github.com/gabrielrf96/html-artisan/releases">release version</a>.
 - Keeps all the **performance** benefits of vanilla JS but with a **prettier syntax**. HTML structures are generated using core JS functionality, so it's very **efficient** and **fast**.
 - Produces **structured**, **easy to read** and **maintainable** code.
-- Can be **easily combined** with other libraries, like jQuery, to boost productivity.
+- Can be **easily combined** with other libraries to boost productivity.
+- It's ideal for small dynamic projects where using a front end framework like Vue.js or React would be overkill.
 
 
 <a name="compatibility"></a>
 ## Browser compatibility
 HTML Artisan is built to be compatible with all major browsers, on both desktop and mobile devices. HTML Artisan is guaranteed to work in the following browsers, in which it has been thoroughly tested (compatibility is not, however, limited to this list):
 
-- Google Chrome 49+
-- Mozilla Firefox 44+
-- Microsoft Edge 14+
-- Safari 11+
-- Opera 36+
+- Google Chrome >= 85
+- Mozilla Firefox >= 79
+- Microsoft Edge >= 85
+- Safari >= 14
+- Opera >= 71
 
 **Attention**: support for Internet Explorer and older versions of major browsers has been dropped starting at v2.0.0. If you need to use HtmlArtisan on Internet Explorer, or an older, non-ES6-compliant version of any other browser, you should use [version 1.3.0](https://github.com/gabrielrf96/html-artisan/releases/tag/v1.3.0). Be aware, however, that v1.3.0 is discontinued and will not receive future improvements and/or new functionalities.
 
@@ -112,10 +113,21 @@ HTML Artisan is built to be compatible with all major browsers, on both desktop 
 ## How to use?
 
 <a name="examples-intro"></a>
+### Installation
+You have two options to install HTML Artisan:
+
+1. Download the JS file directly from the [Releases](https://github.com/gabrielrf96/html-artisan/releases) section in the GitHub repo.
+
+2. Install using `npm`:
+```shell
+npm i html-artisan
+```
+
+<a name="examples-intro"></a>
 ### Examples
 In this repository, you will find a set of [examples](examples) that depict the basic use of the library, and its main functionalities and utilities. To get started you can check the basic example [here](examples/basic.html).
 
-You can also dive directly into the source code [here](src/htmlartisan.js)
+You can also dive directly into the source code [here](src/htmlartisan.js).
 
 <a name="htmlartisan-object"></a>
 ### The HtmlArtisan object
@@ -143,7 +155,7 @@ var ht = HtmlArtisan.fixConflict(true);
 
 <a name="basic-use"></a>
 ### Basic usage
-The ***HTML Artisan*** object itself is a function besides being its own namespace (just like jQuery). Calling the `HtmlArtisan` object as a function will unleash its HTML-generating power.
+The ***HTML Artisan*** object itself is a function besides being its own namespace. Calling the `HtmlArtisan` object as a function will unleash its HTML-generating power.
 
 Remember, calling `HtmlArtisan` is equivalent to calling its alias, `h`.
 
@@ -156,8 +168,8 @@ h('div', {
     ['p', null, 'This a paragraph generated with HTML Artisan.'],
     ['p', null, 'HTML Artisan is so cool!'],
     ['p', null, [
-        "HTML Artisan's creator, Gabriel, is on ",
-        ['a', {href: 'https://twitter.com/Gabri239'}, 'Twitter!'],
+        "Check out HTML Artisan creator's website at ",
+        ['a', {href: 'https://www.gabrielrf.dev'}, 'www.gabrielrf.dev'],
     ]]
 ]);
 ```
@@ -168,8 +180,8 @@ Will generate this HTML structure:
     <p>This a paragraph generated with HTML Artisan.</p>
     <p>HTML Artisan is so cool!</p>
     <p>
-        HTML Artisan's creator, Gabriel, is on
-        <a href="https://twitter.com/Gabri239">Twitter</a>
+        Check out HTML Artisan creator's website at
+        <a href="https://www.gabrielrf.dev">www.gabrielrf.dev</a>
     </p>
 </div>
 ```
@@ -208,7 +220,7 @@ HTML Artisan will automatically decide whether each passed attribute should be a
 If you need to set an object property manually (because you need, for example, to set a method on the element you are creating), you can do so using callbacks. See the callbacks section for more information on this topic.
 
 Some things to take into account while defining attributes:
-- Since 'class' is a reserved word, it should be quoted.
+- Since 'class' is a reserved keyword, it should be quoted.
 
 - CSS classes can be passed as either 'class' or 'className'.
 
@@ -538,7 +550,7 @@ I'm still working to improve **HTML Artisan** and bring new functionalities and 
 ### Currently working on / future improvements
 HTML Artisan has reached a point where I'm satisfied with its current functionalities and architecture, as it meets all my needs perfectly.
 
-However, I'm constantly and extensively using this library in my own projects, and I'm always looking out for possible bugs and improvements, and thinking of new functionalities to implement.
+However, I'm regularly using this library in my own projects, and I'm always looking out for possible bugs and improvements, and thinking of new functionalities to implement.
 
 Therefore, while there's nothing currently in the works regarding HTML Artisan, its development is well alive and will continue in the future. Besides, it's always open to suggestions and pull requests, so if you want to collaborate, don't be shy!
 
