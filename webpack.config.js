@@ -1,5 +1,5 @@
 const PACKAGE = require('./package.json');
-const licenseComment = `/*! HTML Artisan v${PACKAGE.version} | (c) Gabriel Rodríguez Fernández | https://www.gabrielrf.dev */`
+const licenseComment = `/*! HTML Artisan v${PACKAGE.version} | (c) Gabriel Rodríguez | https://www.gabrielrf.dev */`
 
 const webpack = require('webpack');
 const TerserPlugin = require("terser-webpack-plugin");
@@ -16,7 +16,7 @@ module.exports = {
             new TerserPlugin({
                 extractComments: false,
                 terserOptions: {
-                    ecma: 2015,
+                    ecma: 2023,
                     format: {
                         comments: false,
                         preamble: licenseComment
