@@ -20,10 +20,10 @@ module.exports = {
                     ecma: 2023,
                     format: {
                         comments: false,
-                        preamble: LICENSE_COMMENT
-                    }
-                }
+                        preamble: LICENSE_COMMENT,
+                    },
+                },
             }),
-        ]
+        ],
     }
 };
