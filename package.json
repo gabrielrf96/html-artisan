@@ -22,8 +22,8 @@
   },
   "homepage": "https://github.com/gabrielrf96/html-artisan#readme",
   "devDependencies": {
-    "replace-in-file": "^7.2.0",
-    "webpack": "^5.91.0",
-    "webpack-cli": "^5.1.4"
+    "replace-in-file": "^8.4.0",
+    "webpack": "^5.105.4",
+    "webpack-cli": "^6.0.1"
   }
 }
