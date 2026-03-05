@@ -1,14 +1,15 @@
-const PACKAGE = require('./package.json');
-const licenseComment = `/*! HTML Artisan v${PACKAGE.version} | (c) Gabriel Rodríguez | https://www.gabrielrf.dev */`
+const PACKAGE = require("./package.json");
+const LICENSE_COMMENT = `/*! HTML Artisan v${PACKAGE.version} | (c) Gabriel Rodríguez | https://www.gabrielrf.dev */`
 
-const webpack = require('webpack');
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-    mode: 'production',
-    entry: './src/htmlartisan.js',
+    mode: "production",
+    target: "web",
+    entry: "./scripts/build-standalone.js",
     output: {
-        filename: `htmlartisan-${PACKAGE.version}.min.js`
+        iife: true,
+        filename: "html-artisan.min.js",
     },
     optimization: {
         minimize: true,
@@ -19,13 +20,10 @@ module.exports = {
                     ecma: 2023,
                     format: {
                         comments: false,
-                        preamble: licenseComment
+                        preamble: LICENSE_COMMENT
                     }
                 }
             }),
-            new webpack.DefinePlugin({
-                __VERSION__: JSON.stringify(PACKAGE.version)
-            })
         ]
     }
 };
