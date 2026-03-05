@@ -1,9 +1,10 @@
-const PACKAGE = require('./package.json');
-const LICENSE_COMMENT = `/*! HTML Artisan v${PACKAGE.version} | (c) Gabriel Rodríguez | https://www.gabrielrf.dev */`
+import packageInfo from './package.json' with { type: 'json' };
 
-const TerserPlugin = require('terser-webpack-plugin');
+const LICENSE_COMMENT = `/*! HTML Artisan v${packageInfo.version} | (c) Gabriel Rodríguez | https://www.gabrielrf.dev */`
 
-module.exports = {
+import TerserPlugin from 'terser-webpack-plugin';
+
+export default {
     mode: 'production',
     target: 'web',
     entry: './scripts/build-standalone.js',

@@ -1,6 +1,6 @@
 // Script to build HTML Artisan as a legacy standalone file to use directly instead of using npm / modules
 
-import { HtmlArtisan } from '../src/html-artisan';
+import { HtmlArtisan } from '../src/html-artisan.js';
 
 const namespace = 'HtmlArtisan';
 const alias = 'h';
