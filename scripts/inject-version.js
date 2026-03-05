@@ -11,6 +11,14 @@ try {
         to: `# HTML Artisan *v${PACKAGE.version}*`
     });
 
+    changedFiles.push(...replace.sync({
+        files: [
+            `${__dirname}/../src/html-artisan.js`,
+        ],
+        from: /\/\*! HTML Artisan v([^*|]*) \|/g,
+        to: `/*! HTML Artisan v${PACKAGE.version} |`
+    }))
+
     console.log('Version injected successfully: ', changedFiles);
 } catch (error) {
     console.error('Error occurred: ', error);
