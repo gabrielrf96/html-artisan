@@ -2,12 +2,11 @@
   "name": "html-artisan",
   "version": "2.1.0",
   "description": "A lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures",
-  "main": "src/htmlartisan.js",
+  "main": "src/html-artisan.js",
   "directories": {
     "example": "examples"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "chver": "npm version --no-git-tag-version",
     "postchver": "node scripts/inject-version.js"
