@@ -1,5 +1,5 @@
-const PACKAGE = require('../package.json');
-const replace = require('replace-in-file');
+const PACKAGE = require("../package.json");
+const replace = require("replace-in-file");
 
 try {
     const changedFiles = replace.sync({
@@ -19,7 +19,7 @@ try {
         to: `/*! HTML Artisan v${PACKAGE.version} |`
     }))
 
-    console.log('Version injected successfully: ', changedFiles);
+    console.log("Version injected successfully: ", changedFiles);
 } catch (error) {
-    console.error('Error occurred: ', error);
+    console.error("Error occurred: ", error);
 }
