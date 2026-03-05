@@ -2,7 +2,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { replaceInFileSync } from 'replace-in-file';
 
-import packageInfo from "../package.json" with { type: "json" };
+import packageInfo from '../package.json' with { type: 'json' };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -25,7 +25,7 @@ try {
         to: `/*! HTML Artisan v${packageInfo.version} |`
     }))
 
-    console.log("Version injected successfully: ", changedFiles);
+    console.log('Version injected successfully: ', changedFiles);
 } catch (error) {
-    console.error("Error occurred: ", error);
+    console.error('Error occurred: ', error);
 }

@@ -1,9 +1,9 @@
 /*! HTML Artisan v3.0.0 | MIT License | (c) Gabriel Rodríguez | https://www.gabrielrf.dev */
 
-import packageInfo from "../package.json" with { type: "json" };
+import packageInfo from '../package.json' with { type: 'json' };
 
 /** Attributes that should be initially ignored (they are processed in some special way) */
-const IGNORED_ATTRIBUTES = ["events", "style", "if", "callback"];
+const IGNORED_ATTRIBUTES = ['events', 'style', 'if', 'callback'];
 
 /**
  * The main HTML Artisan object.
@@ -47,11 +47,11 @@ export const HtmlArtisan = {
      *
      * @returns {Element} The created element with all its children and attributes already attached.
      */
-    build: (tag = "div", attributes = null, children = null, callback = null) => {
+    build: (tag = 'div', attributes = null, children = null, callback = null) => {
         return h(tag, attributes, children, callback);
     },
 
-    author: "Gabriel Rodríguez | https://www.gabrielrf.dev",
+    author: 'Gabriel Rodríguez | https://www.gabrielrf.dev',
     version: packageInfo.version,
 }
 
@@ -90,7 +90,7 @@ export const HtmlArtisan = {
  *
  * @returns {Element} The created element with all its children and attributes already attached.
  */
-export function h(tag = "div", attributes = null, children = null, callback = null) {
+export function h(tag = 'div', attributes = null, children = null, callback = null) {
     const element = document.createElement(tag);
 
     if (attributes !== null) {
@@ -123,7 +123,7 @@ export function h(tag = "div", attributes = null, children = null, callback = nu
  */
 function _processAttributeMap(element, attributes) {
     if ((attributes?.if ?? null) !== null) {
-        const shouldBeRendered = typeof attributes.if === "function" ? attributes.if() : attributes.if;
+        const shouldBeRendered = typeof attributes.if === 'function' ? attributes.if() : attributes.if;
 
         if (!shouldBeRendered) {
             return false;
@@ -144,7 +144,7 @@ function _processAttributeMap(element, attributes) {
         element.addEventListener(event, attributes.events[event]);
     }
 
-    if (typeof attributes.style === "string") {
+    if (typeof attributes.style === 'string') {
         element.style = attributes.style;
     } else {
         for (const styleRule in attributes.style) {
@@ -165,7 +165,7 @@ function _processAttributeMap(element, attributes) {
  */
 function _processChildrenArray(element, children) {
     // If a valid single element is passed as `children`, convert to an array of children
-    if (["string", "function"].includes(typeof children) || children instanceof HTMLElement || children === null) {
+    if (['string', 'function'].includes(typeof children) || children instanceof HTMLElement || children === null) {
         children = [children];
     }
 
@@ -174,9 +174,9 @@ function _processChildrenArray(element, children) {
             continue;
         }
 
-        if (child instanceof Node || typeof child === "string") {
+        if (child instanceof Node || typeof child === 'string') {
             element.append(child);
-        } else if (typeof child === "function") {
+        } else if (typeof child === 'function') {
             _processChildrenArray(element, child());
         } else if (child instanceof Array) {
             const result = h.apply(null, child);

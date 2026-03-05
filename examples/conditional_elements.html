@@ -16,30 +16,30 @@
         </style>
 
         <script type="module">
-            import { h } from "../src/html-artisan.js";
+            import { h } from '../src/html-artisan.js';
 
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener('DOMContentLoaded', function() {
 
                 // This element has no `if` condition, so it will appear without trouble
                 document.body.appendChild(
-                    h("div", null, [
-                        ["p", null, "Unconditionally!"]
+                    h('div', null, [
+                        ['p', null, 'Unconditionally!']
                     ])
                 );
 
                 // This element should be completely empty
                 document.body.appendChild(
-                    h("div", null, [
-                        ["p", {"if": false}, "This paragraph will never appear!"],
-                        ["p", {"if": false}, "Neither will this one!"]
+                    h('div', null, [
+                        ['p', {'if': false}, 'This paragraph will never appear!'],
+                        ['p', {'if': false}, 'Neither will this one!']
                     ])
                 );
 
                 // This element should have only the first paragraph
                 document.body.appendChild(
-                    h("div", null, [
-                        ["p", {"if": true}, "You can read this!"],
-                        ["p", {"if": false}, "This one will not be rendered."]
+                    h('div', null, [
+                        ['p', {'if': true}, 'You can read this!'],
+                        ['p', {'if': false}, 'This one will not be rendered.']
                     ])
                 );
 
@@ -48,23 +48,23 @@
                 var todayIsEven = (today.getDate() % 2 == 0);
 
                 document.body.appendChild(
-                    h("div", null, [
-                        ["div", {"if": todayIsEven}, [
-                            ["p", null, "If you can read this, today is an even day!"],
-                            ["p", null, "Today is: " + today.getDate()]
+                    h('div', null, [
+                        ['div', {'if': todayIsEven}, [
+                            ['p', null, 'If you can read this, today is an even day!'],
+                            ['p', null, 'Today is: ' + today.getDate()]
                         ]],
-                        ["div", {"if": !todayIsEven}, [
-                            ["p", null, "Such a shame! It's an odd day isn't it?"],
-                            ["p", null, "Today is: " + today.getDate()]
+                        ['div', {'if': !todayIsEven}, [
+                            ['p', null, "Such a shame! It's an odd day isn't it?"],
+                            ['p', null, 'Today is: ' + today.getDate()]
                         ]]
                     ])
                 );
 
                 // Conditions can also be specified passing functions
                 document.body.appendChild(
-                    h("div", null, [
-                        ["div", { "if": function() { return 1+1 == 2; } }, [
-                            ["p", null, "Hello there! :)"]
+                    h('div', null, [
+                        ['div', { 'if': function() { return 1+1 == 2; } }, [
+                            ['p', null, 'Hello there! :)']
                         ]]
                     ])
                 );
@@ -75,9 +75,9 @@
                 }
 
                 document.body.appendChild(
-                    h("div", null, [
-                        ["div", { "if": sumIsOk(1, 1, 2) }, [
-                            ["p", null, "Hello there 2! :)"]
+                    h('div', null, [
+                        ['div', { 'if': sumIsOk(1, 1, 2) }, [
+                            ['p', null, 'Hello there 2! :)']
                         ]]
                     ])
                 );
@@ -86,17 +86,17 @@
                 // Therefore, this appendChild will fail
                 try {
                     document.body.appendChild(
-                        h("div", {"if": false}, "No div around here, keep walking!")
+                        h('div', {'if': false}, 'No div around here, keep walking!')
                     )
                 } catch (e) {
-                    console.error("Failed to append! :(")
+                    console.error('Failed to append! :(')
                 }
 
                 // So, if you use an `if` condition on a root element, be sure to check it for null before trying to append it!
                 var userInputA = 2;
                 var userInputB = 4;
 
-                var elementThatCouldBeNull = h("div", { "if": sumIsOk(userInputA, userInputB, 6) }, "Good job!");
+                var elementThatCouldBeNull = h('div', { 'if': sumIsOk(userInputA, userInputB, 6) }, 'Good job!');
                 if (elementThatCouldBeNull !== null) {
                     document.body.appendChild( elementThatCouldBeNull );
                 }

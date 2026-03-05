@@ -9,17 +9,17 @@
         <script>
             // Another library sets HtmlArtisan and h
             window.HtmlArtisan = function() {
-                console.log("Original HtmlArtisan");
+                console.log('Original HtmlArtisan');
             }
             window.h = function() {
-                console.log("Original h");
+                console.log('Original h');
             }
         </script>
 
         <script src="../dist/html-artisan.min.js" type="text/javascript"></script>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener('DOMContentLoaded', function() {
                 // Restore original namespace and alias, and set HtmlArtisan to a custom namespace
                 window.Artisan = HtmlArtisan.fixConflict();
 
@@ -30,7 +30,7 @@
                 h();
 
                 document.body.appendChild(
-                    Artisan.build("p", null, "Original `HtmlArtisan` and `h` restored. HtmlArtisan set to custom namespace `Artisan`. Alias removed.")
+                    Artisan.build('p', null, 'Original `HtmlArtisan` and `h` restored. HtmlArtisan set to custom namespace `Artisan`. Alias removed.')
                 );
             });
         </script>

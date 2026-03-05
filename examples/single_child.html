@@ -7,27 +7,27 @@
         <title>HtmlArtisan - Single child test</title>
 
         <script type="module">
-            import { h } from "../src/html-artisan.js";
+            import { h } from '../src/html-artisan.js';
 
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener('DOMContentLoaded', function() {
 
-                let iterItems = ["a", "b", "c", "d", "e"];
+                let iterItems = ['a', 'b', 'c', 'd', 'e'];
 
                 // Single string
-                document.body.appendChild(h("h1", null, "Title 1"));
+                document.body.appendChild(h('h1', null, 'Title 1'));
 
                 // Single function
-                document.body.appendChild(h("div", null, () => {
+                document.body.appendChild(h('div', null, () => {
                     let els = []
                     for (const txt in iterItems) {
-                        els.push(h("h2", null, `Title 2-${txt}`))
+                        els.push(h('h2', null, `Title 2-${txt}`))
                     }
                     return els;
                 }));
 
                 // Single DOM element
-                let el = h("h3", null, "Title 3")
-                document.body.appendChild(h("div", null, el));
+                let el = h('h3', null, 'Title 3')
+                document.body.appendChild(h('div', null, el));
 
             });
         </script>
