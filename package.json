@@ -4,9 +4,9 @@
   "description": "A lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures",
   "main": "src/html-artisan.js",
   "type": "module",
-  "directories": {
-    "example": "examples"
-  },
+  "files": [
+    "src"
+  ],
   "scripts": {
     "build": "webpack",
     "chver": "npm version --no-git-tag-version",
