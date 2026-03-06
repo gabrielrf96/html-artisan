@@ -29,8 +29,9 @@
 <br/>
 
 
-# HTML Artisan *v3.0.0*
 <a name="introduction"></a>
+
+# HTML Artisan *v3.0.0*
 
 ***HTML Artisan*** is a lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures.
 
@@ -75,8 +76,9 @@ h('div', {
 
 ***HTML Artisan*** code is versatile and easy to read and maintain, as it resembles a well organized tree structure.
 
-## Why use HTML Artisan?
 <a name="why"></a>
+
+## Why use HTML Artisan?
 
 - **Very light**: the library is about *~1.2 KiB* in its minified, <a href="https://github.com/gabrielrf96/html-artisan/releases">standalone version</a>.
 - Keeps all the **performance** benefits of vanilla JS but with a **prettier syntax**. HTML structures are generated using core JS functionality, so it's very **efficient** and **fast**.
@@ -84,8 +86,9 @@ h('div', {
 - Can be **easily combined** with other libraries to boost productivity.
 - It's ideal for small dynamic projects where using a front end framework like Vue.js or React would be overkill.
 
-## Browser compatibility
 <a name="compatibility"></a>
+
+## Browser compatibility
 
 HTML Artisan is built to be compatible with all major browsers, on both desktop and mobile devices. HTML Artisan is guaranteed to work in the following browsers, in which it has been thoroughly tested (compatibility is not, however, limited to this list):
 
@@ -100,13 +103,15 @@ Note that minimum required browser versions will be higher if you use HTML Artis
 **Older browsers**: Internet Explorer and older versions of major browsers are no longer supported. If you want to use HtmlArtisan in any of them, you can use [version 1.3.0](https://github.com/gabrielrf96/html-artisan/releases/tag/v1.3.0). Be aware, however, that v1 is discontinued and will never receive any further updates.
 
 
-# Installation
 <a name="installation"></a>
+
+# Installation
 
 You have two options to get HTML Artisan: as an `npm` package, or as a standalone, minified JS file.
 
-## `npm` package
 <a name="installation_npm"></a>
+
+## `npm` package
 
 This is the recommended way. Install using `npm`:
 
@@ -122,24 +127,28 @@ import { HtmlArtisan, h } from 'html-artisan';
 
 As you will see a bit later, `HtmlArtisan` is the main object, and `h()` is a convenient alias for `HtmlArtisan.build()`.
 
-## Standalone
 <a name="installation-standalone"></a>
+
+## Standalone
 
 Download the minified JS file directly from the [Releases](https://github.com/gabrielrf96/html-artisan/releases) section in the GitHub repo, and include it in your HTML as you would any other JS file.
 
 The standalone version will declare `HtmlArtisan` and `h` globally (in `window`). It also provides an extra method `HtmlArtisan.fixConflict()` that is not present in the `npm` package version, intended to fix naming conflicts, in the case that you use some other library that also declares `HtmlArtisan` and/or `h` globally.
 
 
-# Usage
 <a name="usage"></a>
 
-## Examples
+# Usage
+
 <a name="examples-intro"></a>
+
+## Examples
 
 In this repository, you will find a set of [examples](examples) that depict the basic usage of the library, and its main functionalities and utilities. To get started you can check the basic example [here](examples/basic.html).
 
-## `HtmlArtisan` and `h()`
 <a name="htmlartisan-object"></a>
+
+## `HtmlArtisan` and `h()`
 
 `HtmlArtisan` is the main object of this library, containing:
 - The `build()` method, which provides the main HTML-building functionality.
@@ -158,8 +167,9 @@ import { HtmlArtisan } from 'html-artisan';
 
 If you are using the standalone version, both `HtmlArtisan` and the alias function `h()` will already be defined automatically in the global `window` context as soon as you include the JS file in your HTML.
 
-### Namespace conflicts
 <a name="namespace-conflicts"></a>
+
+### Namespace conflicts
 
 If you're using the `npm` package, naming conflicts are not really an issue, as you can import using aliases if two things have the same name.
 
@@ -196,8 +206,9 @@ const Artisan = HtmlArtisan.fixConflict('ht');
 
 ```
 
-## Basic usage
 <a name="basic-usage"></a>
+
+## Basic usage
 
 The most important thing to learn about HTML Artisan is, of course, how to build HTML, which is its whole purpose.
 
@@ -242,8 +253,9 @@ Will generate this HTML structure:
 
 Note that the `children` can be nested in any way we need, which will produce an entire HTML tree from a single call to `h()`. Don't worry about the format for now, we will dive deep into it in the next sections.
 
-## Defining attributes
 <a name="attributes"></a>
+
+## Defining attributes
 
 If provided, the `attributes` parameter will define a series of HTML attributes for our element.
 This parameter acts like a map, where all the **keys** are the attribute **names**.
@@ -307,8 +319,9 @@ Some things to take into account while defining attributes:
 
     - **callback**: a callback function that will be executed once the object is ready, and all its children (if any) have been appended to it. For more information on this topic, check the callbacks section of the documentation.
 
-## Creating children
 <a name="children"></a>
+
+## Creating children
 
 As you have seen, `HtmlArtisan()` accepts a `children` parameter: a list of children that will be appended to the created element. Children can be defined in a variety of different formats in HTML Artisan.
 
@@ -480,8 +493,9 @@ let element = h('div', null, [
 
 You might still want to use generator functions for more complex logic, though.
 
-## Using callbacks
 <a name="callbacks"></a>
+
+## Using callbacks
 
 Sometimes, you need to do some special post-processing on the elements you have created.
 
@@ -608,8 +622,9 @@ h('div', { class: 'container' }, [
 ```
 
 
-# Building from source
 <a name="building"></a>
+
+# Building from source
 
 Since v2.0.0, HtmlArtisan uses the **webpack** bundler. To build HTML Artisan from source as a standalone, minified JS file, you will need to have **`node`** and **`npm`** already installed.
 
@@ -630,8 +645,9 @@ npm run build
 Now, you will find the minified, production-ready JS file right in the `dist` directory, at the root of the repository. This is the exact same file that you can download from the [Releases](https://github.com/gabrielrf96/html-artisan/releases) section on the project's GitHub page.
 
 
-# HTML Artisan's present and future
 <a name="outro"></a>
+
+# HTML Artisan's present and future
 
 HTML Artisan has reached a point where I'm satisfied with its current functionalities and architecture, as it meets all my needs perfectly.
 
@@ -640,8 +656,9 @@ However, I'm regularly using this library in my own projects, and I'm always loo
 Therefore, while there's nothing currently in the works regarding HTML Artisan, its development is still alive and will continue in the future. Besides, it's always open to suggestions and pull requests, so if you want to collaborate, don't be shy!
 
 
-# Bug reporting
 <a name="bug-reporting"></a>
+
+# Bug reporting
 
 If you experience any kind of trouble while using this library, please feel free to contact me to report any bugs or problems.
 
