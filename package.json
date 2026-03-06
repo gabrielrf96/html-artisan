@@ -3,6 +3,7 @@
   "version": "3.0.0",
   "description": "A lightweight JS library for the dynamic, simple and easy-to-read generation of complex HTML structures",
   "main": "src/html-artisan.js",
+  "types": "src/html-artisan.d.ts",
   "type": "module",
   "files": [
     "src"
