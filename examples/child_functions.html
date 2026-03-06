@@ -14,10 +14,10 @@
             }
         </style>
 
-        <script src="../src/htmlartisan.js" type="text/javascript"></script>
+        <script type="module">
+            import { h } from '../src/html-artisan.js';
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener('DOMContentLoaded', function() {
                 document.body.appendChild(
                     h('div', null, [function() {
                         return h('p', null, 'This is a simple element returned by a function');
