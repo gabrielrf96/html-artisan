@@ -1,0 +1,12 @@
+{
+  "include": ["src/*.js"],
+  "exclude": ["src/*.test.js"],
+  "compilerOptions": {
+    "target": "es2023",
+    "allowJs": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationMap": true,
+    "moduleResolution": "node"
+  }
+}

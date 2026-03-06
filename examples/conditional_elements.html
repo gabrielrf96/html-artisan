@@ -15,12 +15,12 @@
             }
         </style>
 
-        <script src="../src/htmlartisan.js" type="text/javascript"></script>
+        <script type="module">
+            import { h } from '../src/html-artisan.js';
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener('DOMContentLoaded', function() {
 
-                // This element has no 'if' condition, so it will appear without trouble
+                // This element has no `if` condition, so it will appear without trouble
                 document.body.appendChild(
                     h('div', null, [
                         ['p', null, 'Unconditionally!']
@@ -92,7 +92,7 @@
                     console.error('Failed to append! :(')
                 }
 
-                // So, if you use an 'if' condition on a root element, be sure to check it for null before trying to append it!
+                // So, if you use an `if` condition on a root element, be sure to check it for null before trying to append it!
                 var userInputA = 2;
                 var userInputB = 4;
 

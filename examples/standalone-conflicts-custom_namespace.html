@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>HtmlArtisan - Fix conflicts (custom) test</title>
+
+        <script>
+            // Another library sets HtmlArtisan and h
+            window.HtmlArtisan = function() {
+                console.log('Original HtmlArtisan');
+            }
+            window.h = function() {
+                console.log('Original h');
+            }
+        </script>
+
+        <script src="../dist/html-artisan.min.js" type="text/javascript"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Restore original namespace and alias, and set HtmlArtisan to a custom namespace
+                window.Artisan = HtmlArtisan.fixConflict();
+
+                document.body.innerHTML = '';
+
+                // HtmlArtisan() and h() are now the ones set first by the other libraries!
+                HtmlArtisan();
+                h();
+
+                document.body.appendChild(
+                    Artisan.build('p', null, 'Original `HtmlArtisan` and `h` restored. HtmlArtisan set to custom namespace `Artisan`. Alias removed.')
+                );
+            });
+        </script>
+    </head>
+    <body>
+        If you're seeing this, it means you haven't built the standalone version of HTML Artisan before running the example.
+        <br><br>
+        To run the standalone version's examples, first build the standalone version using this command: <code>npm run build</code>
+    </body>
+</html>
