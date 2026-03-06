@@ -1,13 +1,15 @@
 /**
  * Creates an HTML element with the desired tag and attributes, and attaches the desired children.
  *
- * @param {string} tag The HTML tag for the element.
+ * @param {string} tag The HTML tag for the element. If not provided, defaults to 'div'.
  *
- * @param {{ [ key: string ]: any }|null} attributes A map containing pairs of attributeName: attributeValue.
+ * @param {{ [ key: string ]: any }|null} attributes A map containing pairs of `attributeName: attributeValue`.
+ *     Can be omitted, in which case it will be `null`.
+ *
  *     Valid attributes are:
  *     - Any valid HTML attribute, including `data-*` attributes.
  *       CSS classes can be passed as either `className` or `class`.
- *       The `style` attribute can be passed as a `string`, or a map containing pairs of `cssProperty: cssValue`
+ *       The `style` attribute can be passed as a `string`, or a map containing pairs of `cssProperty: cssValue`.
  *     - `events`: a map of event handlers. E.g. `{click: function() {...}, mouseover: function() {...}}`.
  *     - `callback`: a function that will be called once the element and all its children are created,
  *       immediately before returning the element. In this function's environment, `this` is the element
@@ -15,6 +17,7 @@
  *       as a function argument (so you can use arrow functions for callbacks).
  *
  * @param {Array[]|HTMLElement|Function|string|null} children An array of children (1), or a single child (2).
+ *     Can be omitted, in which case it will be `null`.
  *
  *     (1) Valid elements that can be passed in a children array:
  *     - A DOM element.
@@ -29,15 +32,16 @@
  *
  * @param {Function|null} callback This callback function works exactly the same as the one that can be passed
  *     in the `attributes` parameter. If both of them are defined, this function will override the one from
- *     `attributes`.
+ *     `attributes`. Can be omitted, in which case it will be `null`.
  *
- * @returns {Element} The created element with all its children and attributes already attached.
+ * @returns {Element|null} The created element with all its children and attributes already attached. `null` may be
+ *     returned if the evaluation of `attributes.if` yields `false`.
  */
 export function h(
-    tag?: string = 'div',
-    attributes?: {[key: string]: any;} | null = null,
-    children?: any[][] | HTMLElement | Function | string | null = null,
-    callback?: Function | null = null
+    tag?: string,
+    attributes?: {[key: string]: any;} | null,
+    children?: any[][] | HTMLElement | Function | string | null,
+    callback?: Function | null
 ): Element;
 
 /**
@@ -50,13 +54,15 @@ export namespace HtmlArtisan {
     /**
      * Creates an HTML element with the desired tag and attributes, and attaches the desired children.
      *
-     * @param {string} tag The HTML tag for the element.
+     * @param {string} tag The HTML tag for the element. If not provided, defaults to 'div'.
      *
-     * @param {{ [ key: string ]: any }|null} attributes A map containing pairs of attributeName: attributeValue.
+     * @param {{ [ key: string ]: any }|null} attributes A map containing pairs of `attributeName: attributeValue`.
+     *     Can be omitted, in which case it will be `null`.
+     *
      *     Valid attributes are:
      *     - Any valid HTML attribute, including `data-*` attributes.
      *       CSS classes can be passed as either `className` or `class`.
-     *       The `style` attribute can be passed as a `string`, or a map containing pairs of `cssProperty: cssValue`
+     *       The `style` attribute can be passed as a `string`, or a map containing pairs of `cssProperty: cssValue`.
      *     - `events`: a map of event handlers. E.g. `{click: function() {...}, mouseover: function() {...}}`.
      *     - `callback`: a function that will be called once the element and all its children are created,
      *       immediately before returning the element. In this function's environment, `this` is the element
@@ -64,6 +70,7 @@ export namespace HtmlArtisan {
      *       as a function argument (so you can use arrow functions for callbacks).
      *
      * @param {Array[]|HTMLElement|Function|string|null} children An array of children (1), or a single child (2).
+     *     Can be omitted, in which case it will be `null`.
      *
      *     (1) Valid elements that can be passed in a children array:
      *     - A DOM element.
@@ -78,15 +85,16 @@ export namespace HtmlArtisan {
      *
      * @param {Function|null} callback This callback function works exactly the same as the one that can be passed
      *     in the `attributes` parameter. If both of them are defined, this function will override the one from
-     *     `attributes`.
+     *     `attributes`. Can be omitted, in which case it will be `null`.
      *
-     * @returns {Element} The created element with all its children and attributes already attached.
+     * @returns {Element|null} The created element with all its children and attributes already attached. `null` may be
+     *     returned if the evaluation of `attributes.if` yields `false`.
      */
     function build(
-        tag?: string = 'div',
-        attributes?: {[key: string]: any;} | null = null,
-        children?: any[][] | HTMLElement | Function | string | null = null,
-        callback?: Function | null = null
+        tag?: string,
+        attributes?: {[key: string]: any;} | null,
+        children?: any[][] | HTMLElement | Function | string | null,
+        callback?: Function | null
     ): Element;
     let author: string;
     let version: string;

@@ -15,13 +15,15 @@ export const HtmlArtisan = {
     /**
      * Creates an HTML element with the desired tag and attributes, and attaches the desired children.
      *
-     * @param {string} tag The HTML tag for the element.
+     * @param {string} tag The HTML tag for the element. If not provided, defaults to 'div'.
      *
-     * @param {{ [ key: string ]: any }|null} attributes A map containing pairs of attributeName: attributeValue.
+     * @param {{ [ key: string ]: any }|null} attributes A map containing pairs of `attributeName: attributeValue`.
+     *     Can be omitted, in which case it will be `null`.
+     *
      *     Valid attributes are:
      *     - Any valid HTML attribute, including `data-*` attributes.
      *       CSS classes can be passed as either `className` or `class`.
-     *       The `style` attribute can be passed as a `string`, or a map containing pairs of `cssProperty: cssValue`
+     *       The `style` attribute can be passed as a `string`, or a map containing pairs of `cssProperty: cssValue`.
      *     - `events`: a map of event handlers. E.g. `{click: function() {...}, mouseover: function() {...}}`.
      *     - `callback`: a function that will be called once the element and all its children are created,
      *       immediately before returning the element. In this function's environment, `this` is the element
@@ -29,6 +31,7 @@ export const HtmlArtisan = {
      *       as a function argument (so you can use arrow functions for callbacks).
      *
      * @param {Array[]|HTMLElement|Function|string|null} children An array of children (1), or a single child (2).
+     *     Can be omitted, in which case it will be `null`.
      *
      *     (1) Valid elements that can be passed in a children array:
      *     - A DOM element.
@@ -43,9 +46,10 @@ export const HtmlArtisan = {
      *
      * @param {Function|null} callback This callback function works exactly the same as the one that can be passed
      *     in the `attributes` parameter. If both of them are defined, this function will override the one from
-     *     `attributes`.
+     *     `attributes`. Can be omitted, in which case it will be `null`.
      *
-     * @returns {Element} The created element with all its children and attributes already attached.
+     * @returns {Element|null} The created element with all its children and attributes already attached. `null` may be
+     *     returned if the evaluation of `attributes.if` yields `false`.
      */
     build: (tag = 'div', attributes = null, children = null, callback = null) => {
         return h(tag, attributes, children, callback);
@@ -65,13 +69,15 @@ export const HtmlArtisan = {
 /**
  * Creates an HTML element with the desired tag and attributes, and attaches the desired children.
  *
- * @param {string} tag The HTML tag for the element.
+ * @param {string} tag The HTML tag for the element. If not provided, defaults to 'div'.
  *
- * @param {{ [ key: string ]: any }|null} attributes A map containing pairs of attributeName: attributeValue.
+ * @param {{ [ key: string ]: any }|null} attributes A map containing pairs of `attributeName: attributeValue`.
+ *     Can be omitted, in which case it will be `null`.
+ *
  *     Valid attributes are:
  *     - Any valid HTML attribute, including `data-*` attributes.
  *       CSS classes can be passed as either `className` or `class`.
- *       The `style` attribute can be passed as a `string`, or a map containing pairs of `cssProperty: cssValue`
+ *       The `style` attribute can be passed as a `string`, or a map containing pairs of `cssProperty: cssValue`.
  *     - `events`: a map of event handlers. E.g. `{click: function() {...}, mouseover: function() {...}}`.
  *     - `callback`: a function that will be called once the element and all its children are created,
  *       immediately before returning the element. In this function's environment, `this` is the element
@@ -79,6 +85,7 @@ export const HtmlArtisan = {
  *       as a function argument (so you can use arrow functions for callbacks).
  *
  * @param {Array[]|HTMLElement|Function|string|null} children An array of children (1), or a single child (2).
+ *     Can be omitted, in which case it will be `null`.
  *
  *     (1) Valid elements that can be passed in a children array:
  *     - A DOM element.
@@ -93,9 +100,10 @@ export const HtmlArtisan = {
  *
  * @param {Function|null} callback This callback function works exactly the same as the one that can be passed
  *     in the `attributes` parameter. If both of them are defined, this function will override the one from
- *     `attributes`.
+ *     `attributes`. Can be omitted, in which case it will be `null`.
  *
- * @returns {Element} The created element with all its children and attributes already attached.
+ * @returns {Element|null} The created element with all its children and attributes already attached. `null` may be
+ *     returned if the evaluation of `attributes.if` yields `false`.
  */
 export function h(tag = 'div', attributes = null, children = null, callback = null) {
     const element = document.createElement(tag);
@@ -124,9 +132,10 @@ export function h(tag = 'div', attributes = null, children = null, callback = nu
  * Processes an attribute map, properly assigning attribute values to the element.
  *
  * @param {HTMLElement} element The HTML element that the attributes will be set on.
- * @param {{ [ key: string ]: any }} attributes The attribute map. See HtmlArtisan function docs for more information on the attribute map format
+ * @param {{ [ key: string ]: any }} attributes The attribute map. See the docs of the {@link h()} function
+ *     for more information on the attribute map format.
  *
- * @returns {boolean} Boolean determining whether or not the element should be created (depending on attributes.if)
+ * @returns {boolean} Boolean determining whether or not the element should be created (depending on `attributes.if`).
  */
 function _processAttributeMap(element, attributes) {
     if ((attributes?.if ?? null) !== null) {
@@ -168,7 +177,9 @@ function _processAttributeMap(element, attributes) {
  * Processes a child or array of children, and attaches them to the desired element.
  *
  * @param {HTMLElement} element The HTML element that the children will be attached to.
- * @param {Array[]|HTMLElement|Function|string} children The child or children, expressed in any of the HtmlArtisan-accepted formats.
+ * @param {Array[]|HTMLElement|Function|string} children The child or children, expressed in any of the
+ *     HtmlArtisan-accepted formats. See the docs of the {@link h()} function for more information on the
+ *     accepted formats.
  */
 function _processChildrenArray(element, children) {
     // If a valid single element is passed as `children`, convert to an array of children
