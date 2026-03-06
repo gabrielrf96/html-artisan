@@ -5,10 +5,11 @@ type HtmlArtisanBuildFunction = (
     callback: Function = null,
 ) => Element;
 
-export type HtmlArtisan = {
+type HtmlArtisan = {
     build: HtmlArtisanBuildFunction;
     author: string;
     version: string;
-};
+}
 
+export const HtmlArtisan: HtmlArtisan;
 export const h: HtmlArtisanBuildFunction;
