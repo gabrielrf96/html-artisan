@@ -11,7 +11,6 @@ try {
     const changedFiles = replaceInFileSync({
         files: [
             `${__dirname}/../README.md`,
-            `${__dirname}/../API.md`,
         ],
         from: /# HTML Artisan \*v([^*]*)\*/g,
         to: `# HTML Artisan *v${packageInfo.version}*`
