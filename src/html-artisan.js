@@ -109,7 +109,8 @@ export function h(tag = 'div', attributes = null, children = null, callback = nu
     const element = document.createElement(tag);
 
     if (attributes !== null) {
-        let elementVisible = _processAttributeMap(element, attributes);
+        const elementVisible = _processAttributeMap(element, attributes);
+
         if (!elementVisible) {
             return null;
         }
@@ -138,7 +139,7 @@ export function h(tag = 'div', attributes = null, children = null, callback = nu
  * @returns {boolean} Boolean determining whether or not the element should be created (depending on `attributes.if`).
  */
 function _processAttributeMap(element, attributes) {
-    if ((attributes?.if ?? null) !== null) {
+    if (attributes.if !== null) {
         const shouldBeRendered = typeof attributes.if === 'function' ? attributes.if() : attributes.if;
 
         if (!shouldBeRendered) {
@@ -147,12 +148,16 @@ function _processAttributeMap(element, attributes) {
     }
 
     for (const attribute in attributes) {
-        if (!IGNORED_ATTRIBUTES.includes(attribute)) {
-            if (attribute in element) {
-                element[attribute] = attributes[attribute];
-            } else {
-                element.setAttribute(attribute, attributes[attribute]);
-            }
+        // Some special attributes must be ignored here, as they will be processed later in specific ways
+        if (IGNORED_ATTRIBUTES.includes(attribute)) {
+            continue;
+        }
+
+        if (attribute in element) {
+            // When possible, use direct assignment, which is faster than calling `setAttribute` when done repeatedly
+            element[attribute] = attributes[attribute];
+        } else {
+            element.setAttribute(attribute, attributes[attribute]);
         }
     }
 
