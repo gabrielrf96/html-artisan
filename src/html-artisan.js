@@ -10,9 +10,6 @@ const IGNORED_ATTRIBUTES = ['events', 'style', 'if', 'callback'];
  *
  * Using {@link HtmlArtisan.build()} or the standalone function {@link h()} is exactly the same
  * and will yield the same results.
- *
- * @property {string} author
- * @property {string} version
  */
 export const HtmlArtisan = {
     /**
@@ -54,9 +51,16 @@ export const HtmlArtisan = {
         return h(tag, attributes, children, callback);
     },
 
+    /**
+     * @type {string}
+     */
     author: 'Gabriel Rodríguez | https://www.gabrielrf.dev',
+
+    /**
+     * @type {string}
+     */
     version: packageInfo.version,
-}
+};
 
 /**
  * Creates an HTML element with the desired tag and attributes, and attaches the desired children.
