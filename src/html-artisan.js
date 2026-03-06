@@ -24,6 +24,9 @@ export const HtmlArtisan = {
      *     - Any valid HTML attribute, including `data-*` attributes.
      *       CSS classes can be passed as either `className` or `class`.
      *       The `style` attribute can be passed as a `string`, or a map containing pairs of `cssProperty: cssValue`.
+     *     - `if`: a boolean expression or callback function, which will be evaluated to determine whether the element
+     *       should be rendered or not. If the boolean expression, or the result of calling the callback function, is
+     *       `false`, then `null` will be returned by the function and the element or child will not be rendered.
      *     - `events`: a map of event handlers. E.g. `{click: function() {...}, mouseover: function() {...}}`.
      *     - `callback`: a function that will be called once the element and all its children are created,
      *       immediately before returning the element. In this function's environment, `this` is the element
@@ -48,7 +51,7 @@ export const HtmlArtisan = {
      *     in the `attributes` parameter. If both of them are defined, this function will override the one from
      *     `attributes`. Can be omitted, in which case it will be `null`.
      *
-     * @returns {Element|null} The created element with all its children and attributes already attached. `null` may be
+     * @returns {HTMLElement|null} The created element with all its children and attributes already attached. `null` may be
      *     returned if the evaluation of `attributes.if` yields `false`.
      */
     build: (tag = 'div', attributes = null, children = null, callback = null) => {
@@ -78,6 +81,9 @@ export const HtmlArtisan = {
  *     - Any valid HTML attribute, including `data-*` attributes.
  *       CSS classes can be passed as either `className` or `class`.
  *       The `style` attribute can be passed as a `string`, or a map containing pairs of `cssProperty: cssValue`.
+ *     - `if`: a boolean expression or callback function, which will be evaluated to determine whether the element
+ *       should be rendered or not. If the boolean expression, or the result of calling the callback function, is
+ *       `false`, then `null` will be returned by the function and the element or child will not be rendered.
  *     - `events`: a map of event handlers. E.g. `{click: function() {...}, mouseover: function() {...}}`.
  *     - `callback`: a function that will be called once the element and all its children are created,
  *       immediately before returning the element. In this function's environment, `this` is the element
@@ -102,18 +108,22 @@ export const HtmlArtisan = {
  *     in the `attributes` parameter. If both of them are defined, this function will override the one from
  *     `attributes`. Can be omitted, in which case it will be `null`.
  *
- * @returns {Element|null} The created element with all its children and attributes already attached. `null` may be
+ * @returns {HTMLElement|null} The created element with all its children and attributes already attached. `null` may be
  *     returned if the evaluation of `attributes.if` yields `false`.
  */
 export function h(tag = 'div', attributes = null, children = null, callback = null) {
+    if ((attributes?.if ?? null) !== null) {
+        const shouldBeRendered = typeof attributes.if === 'function' ? attributes.if() : attributes.if;
+
+        if (!shouldBeRendered) {
+            return null;
+        }
+    }
+
     const element = document.createElement(tag);
 
     if (attributes !== null) {
-        const elementVisible = _processAttributeMap(element, attributes);
-
-        if (!elementVisible) {
-            return null;
-        }
+        _processAttributeMap(element, attributes);
     }
 
     if (children !== null) {
@@ -135,18 +145,8 @@ export function h(tag = 'div', attributes = null, children = null, callback = nu
  * @param {HTMLElement} element The HTML element that the attributes will be set on.
  * @param {{ [ key: string ]: any }} attributes The attribute map. See the docs of the {@link h()} function
  *     for more information on the attribute map format.
- *
- * @returns {boolean} Boolean determining whether or not the element should be created (depending on `attributes.if`).
  */
 function _processAttributeMap(element, attributes) {
-    if (attributes.if !== null) {
-        const shouldBeRendered = typeof attributes.if === 'function' ? attributes.if() : attributes.if;
-
-        if (!shouldBeRendered) {
-            return false;
-        }
-    }
-
     for (const attribute in attributes) {
         // Some special attributes must be ignored here, as they will be processed later in specific ways
         if (IGNORED_ATTRIBUTES.includes(attribute)) {
@@ -169,13 +169,11 @@ function _processAttributeMap(element, attributes) {
         element.style = attributes.style;
     } else {
         for (const styleRule in attributes.style) {
-            if (element.style[styleRule]) {
+            if (styleRule in element.style) {
                 element.style[styleRule] = attributes.style[styleRule];
             }
         }
     }
-
-    return true;
 }
 
 /**

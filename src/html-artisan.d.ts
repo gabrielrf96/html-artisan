@@ -10,6 +10,9 @@
  *     - Any valid HTML attribute, including `data-*` attributes.
  *       CSS classes can be passed as either `className` or `class`.
  *       The `style` attribute can be passed as a `string`, or a map containing pairs of `cssProperty: cssValue`.
+ *     - `if`: a boolean expression or callback function, which will be evaluated to determine whether the element
+ *       should be rendered or not. If the boolean expression, or the result of calling the callback function, is
+ *       `false`, then `null` will be returned by the function and the element or child will not be rendered.
  *     - `events`: a map of event handlers. E.g. `{click: function() {...}, mouseover: function() {...}}`.
  *     - `callback`: a function that will be called once the element and all its children are created,
  *       immediately before returning the element. In this function's environment, `this` is the element
@@ -34,7 +37,7 @@
  *     in the `attributes` parameter. If both of them are defined, this function will override the one from
  *     `attributes`. Can be omitted, in which case it will be `null`.
  *
- * @returns {Element|null} The created element with all its children and attributes already attached. `null` may be
+ * @returns {HTMLElement|null} The created element with all its children and attributes already attached. `null` may be
  *     returned if the evaluation of `attributes.if` yields `false`.
  */
 export function h(
@@ -42,7 +45,7 @@ export function h(
     attributes?: {[key: string]: any;} | null,
     children?: any[][] | HTMLElement | Function | string | null,
     callback?: Function | null
-): Element;
+): HTMLElement | null;
 
 /**
  * The main HTML Artisan object.
@@ -63,6 +66,9 @@ export namespace HtmlArtisan {
      *     - Any valid HTML attribute, including `data-*` attributes.
      *       CSS classes can be passed as either `className` or `class`.
      *       The `style` attribute can be passed as a `string`, or a map containing pairs of `cssProperty: cssValue`.
+     *     - `if`: a boolean expression or callback function, which will be evaluated to determine whether the element
+     *       should be rendered or not. If the boolean expression, or the result of calling the callback function, is
+     *       `false`, then `null` will be returned by the function and the element or child will not be rendered.
      *     - `events`: a map of event handlers. E.g. `{click: function() {...}, mouseover: function() {...}}`.
      *     - `callback`: a function that will be called once the element and all its children are created,
      *       immediately before returning the element. In this function's environment, `this` is the element
@@ -87,7 +93,7 @@ export namespace HtmlArtisan {
      *     in the `attributes` parameter. If both of them are defined, this function will override the one from
      *     `attributes`. Can be omitted, in which case it will be `null`.
      *
-     * @returns {Element|null} The created element with all its children and attributes already attached. `null` may be
+     * @returns {HTMLElement|null} The created element with all its children and attributes already attached. `null` may be
      *     returned if the evaluation of `attributes.if` yields `false`.
      */
     function build(
@@ -95,7 +101,7 @@ export namespace HtmlArtisan {
         attributes?: {[key: string]: any;} | null,
         children?: any[][] | HTMLElement | Function | string | null,
         callback?: Function | null
-    ): Element;
+    ): HTMLElement | null;
     let author: string;
     let version: string;
 }
