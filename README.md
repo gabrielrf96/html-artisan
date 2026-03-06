@@ -109,7 +109,7 @@ Note that minimum required browser versions will be higher if you use HTML Artis
 
 You have two options to get HTML Artisan: as an `npm` package, or as a standalone, minified JS file.
 
-<a name="installation_npm"></a>
+<a name="installation-npm"></a>
 
 ## `npm` package
 
