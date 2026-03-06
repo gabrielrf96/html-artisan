@@ -10,6 +10,9 @@ const IGNORED_ATTRIBUTES = ['events', 'style', 'if', 'callback'];
  *
  * Using {@link HtmlArtisan.build()} or the standalone function {@link h()} is exactly the same
  * and will yield the same results.
+ *
+ * @property {string} author
+ * @property {string} version
  */
 export const HtmlArtisan = {
     /**
@@ -17,7 +20,7 @@ export const HtmlArtisan = {
      *
      * @param {string} tag The HTML tag for the element.
      *
-     * @param {Object} attributes A map containing pairs of attributeName: attributeValue.
+     * @param {{ [ key: string ]: any }|null} attributes A map containing pairs of attributeName: attributeValue.
      *     Valid attributes are:
      *     - Any valid HTML attribute, including `data-*` attributes.
      *       CSS classes can be passed as either `className` or `class`.
@@ -28,7 +31,7 @@ export const HtmlArtisan = {
      *       that has been created (with all children already attached, too). The created element is also passed
      *       as a function argument (so you can use arrow functions for callbacks).
      *
-     * @param {Array[]|HTMLElement|Function|string} children An array of children (1), or a single child (2).
+     * @param {Array[]|HTMLElement|Function|string|null} children An array of children (1), or a single child (2).
      *
      *     (1) Valid elements that can be passed in a children array:
      *     - A DOM element.
@@ -41,7 +44,7 @@ export const HtmlArtisan = {
      *     - A function returning an element or an array of elements.
      *     - A `string`. In this case, a child text node will be createed and attached.
      *
-     * @param {Function} callback This callback function works exactly the same as the one that can be passed
+     * @param {Function|null} callback This callback function works exactly the same as the one that can be passed
      *     in the `attributes` parameter. If both of them are defined, this function will override the one from
      *     `attributes`.
      *
@@ -60,7 +63,7 @@ export const HtmlArtisan = {
  *
  * @param {string} tag The HTML tag for the element.
  *
- * @param {Object} attributes A map containing pairs of attributeName: attributeValue.
+ * @param {{ [ key: string ]: any }|null} attributes A map containing pairs of attributeName: attributeValue.
  *     Valid attributes are:
  *     - Any valid HTML attribute, including `data-*` attributes.
  *       CSS classes can be passed as either `className` or `class`.
@@ -71,7 +74,7 @@ export const HtmlArtisan = {
  *       that has been created (with all children already attached, too). The created element is also passed
  *       as a function argument (so you can use arrow functions for callbacks).
  *
- * @param {Array[]|HTMLElement|Function|string} children An array of children (1), or a single child (2).
+ * @param {Array[]|HTMLElement|Function|string|null} children An array of children (1), or a single child (2).
  *
  *     (1) Valid elements that can be passed in a children array:
  *     - A DOM element.
@@ -84,7 +87,7 @@ export const HtmlArtisan = {
  *     - A function returning an element or an array of elements.
  *     - A `string`. In this case, a child text node will be createed and attached.
  *
- * @param {Function} callback This callback function works exactly the same as the one that can be passed
+ * @param {Function|null} callback This callback function works exactly the same as the one that can be passed
  *     in the `attributes` parameter. If both of them are defined, this function will override the one from
  *     `attributes`.
  *
@@ -117,7 +120,7 @@ export function h(tag = 'div', attributes = null, children = null, callback = nu
  * Processes an attribute map, properly assigning attribute values to the element.
  *
  * @param {HTMLElement} element The HTML element that the attributes will be set on.
- * @param {Object} attributes The attribute map. See HtmlArtisan function docs for more information on the attribute map format
+ * @param {{ [ key: string ]: any }} attributes The attribute map. See HtmlArtisan function docs for more information on the attribute map format
  *
  * @returns {boolean} Boolean determining whether or not the element should be created (depending on attributes.if)
  */

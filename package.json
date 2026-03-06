@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "build": "webpack",
+    "typegen": "npx tsc",
     "chver": "npm version --no-git-tag-version",
     "postchver": "node scripts/inject-version.js"
   },
@@ -25,6 +26,7 @@
   "homepage": "https://github.com/gabrielrf96/html-artisan#readme",
   "devDependencies": {
     "replace-in-file": "^8.4.0",
+    "typescript": "^5.9.3",
     "webpack": "^5.105.4",
     "webpack-cli": "^6.0.1"
   }
